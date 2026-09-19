@@ -17,6 +17,115 @@
 	\tableofcontents
 	
 	\newpage
+	\section{Фулл Чебышёвский}
+	
+	\[
+	\text{Ищем: } (\lambda, \omega_1, \omega_2, \omega_3, t_2, t_3)
+	
+	\lambda \begin{pmatrix} 0 \\ 1 \\ 2x \\ 3x^2 \\ 4x^3 \end{pmatrix} = \omega_1 \begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \\ 1 \end{pmatrix} - \omega_2 \begin{pmatrix} 1 \\ t_2 \\ t_2^2 \\ t_2^3 \\ t_2^4 \end{pmatrix} + \omega_3 \begin{pmatrix} 1 \\ t_3 \\ t_3^2 \\ t_3^3 \\ t_3^4 \end{pmatrix} - \omega_4 \begin{pmatrix} 1 \\ t_4 \\ t_4^2 \\ t_4^3 \\ t_4^4 \end{pmatrix}
+	
+%	\begin{cases}
+%		\omega_4 = 1 - (\omega_1 + \omega_2 + \omega_3) \\
+%		\frac{t_3 - t_2}{t_2 + 1} = \frac{\sqrt{2}}{2 - \sqrt{2}}
+%	\end{cases}
+	\]
+	
+	\[
+	\lambda^*
+	\begin{pmatrix}
+		0\\
+		1\\
+		2x\\
+		3x^2
+	\end{pmatrix}
+	=
+	-\omega_1
+	\begin{pmatrix}
+		1\\
+		-1\\
+		1\\
+		-1
+	\end{pmatrix}
+	+\omega_2
+	\begin{pmatrix}
+		1\\
+		-\frac12\\
+		\frac14\\
+		-\frac18
+	\end{pmatrix}
+	-\omega_3
+	\begin{pmatrix}
+		1\\
+		\frac12\\
+		\frac14\\
+		\frac18
+	\end{pmatrix}
+	+
+	(1-\omega_1-\omega_2-\omega_3)
+	\begin{pmatrix}
+		1\\
+		1\\
+		1\\
+		1
+	\end{pmatrix}.
+	\]
+	
+	Раскрывая правую часть и приравнивая координаты, получаем систему
+	\[
+	\begin{cases}
+		2\omega_1+2\omega_3=1,\\[2mm]
+		\lambda^*+\dfrac32\omega_2+\dfrac32\omega_3=1,\\[2mm]
+		2\lambda^*x+2\omega_1+\dfrac34\omega_2+\dfrac54\omega_3=1,\\[2mm]
+		3\lambda^*x^2+\dfrac98\omega_2+\dfrac98\omega_3=1.
+	\end{cases}
+	\]
+	
+	Из первого уравнения:
+	\[
+	\omega_1=\frac12-\omega_3.
+	\]
+	
+	Из второго уравнения:
+	\[
+	\lambda^*=1-\frac32(\omega_2+\omega_3).
+	\]
+	
+	Подставляя эти выражения в оставшиеся уравнения и решая полученную систему, получаем
+	\[
+	\lambda^*=\frac{1}{12x^2-3},
+	\]
+	\[
+	\omega_1=
+	\frac{12x^2-8x-1}{72x^2-18},
+	\]
+	\[
+	\omega_2=
+	\frac{12x^2-4x-4}{36x^2-9},
+	\]
+	\[
+	\omega_3=
+	\frac{12x^2+4x-4}{36x^2-9}.
+	\]
+	
+	Таким образом,
+	\[
+	\boxed{
+		\begin{aligned}
+			\lambda^* &= \frac{1}{3(4x^2-1)},\\[2mm]
+			\omega_1 &= \frac{12x^2-8x-1}{18(4x^2-1)},\\[2mm]
+			\omega_2 &= \frac{4(3x^2-x-1)}{9(4x^2-1)},\\[2mm]
+			\omega_3 &= \frac{4(3x^2+x-1)}{9(4x^2-1)}.
+		\end{aligned}
+	}
+	\]
+	
+	При этом
+	\[
+	x\neq\pm\frac12.
+	\]
+	
+	
+	\newpage
 	\section{Получебышёвский, растяжка вправо}
 	
 	Рассмотрим систему
