@@ -253,6 +253,26 @@
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
 	\]
 	
+	
+	\subsection{СРАЗУ ОПИСАТЬ СДВИГ ВЛЕВО И ВПРАВА}
+	\noindent Для поиска узлов используем
+	\[
+	p_0'(x) = \frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = \ 0
+	\]
+	
+	\noindent где $x_k = a t_k + b$ для неких $a, b \in \mathbb{R}$ \\
+	а $t_k, \  k \in 1, \ldots, m$ есть точки альтернанса полинома чебышёва 1-го рода (выкинув последнюю)
+		 
+	
+	\[
+	T_{m}(x) = \cos( m \arccos(x))
+	\]
+	\noindent Они имеют вид 
+	\[
+	t_k = \cos \left( \frac{(k-1) \pi}{m} \right), \ k \in 1 \ldots m
+	\]
+	
+	
 	\newpage
 	\section{Ищем веса в чебышёвских планах}
 	Фиксируем $x \in \mathbb{R}$\\
@@ -391,5 +411,16 @@
 	\[
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m+1}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m+1
 	\]
+	
+	
+	\noindent А узлы это просто точки "алтернанса" полинома Чебышёва 1-го рода 
+	\[
+	 T_{m}(x) = \cos( m \arccos(x))
+	\]
+	\noindent Они имеют вид 
+	\[
+	 x_k = \cos \left( \frac{k \pi}{m} \right), \ k \in 0 \ldots m
+	\]
+	
 	
 \end{document}
