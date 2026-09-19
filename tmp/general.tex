@@ -21,7 +21,7 @@
 	
 	\subsection{Interpolation}
 	Пусть $(x_k, y_k)_{k=0}^{n}$ точки из $\mathbb{R}^2$ \\
-	Задача: найти $p \in \mathbb{P}_n$ т.ч. $p(x_k)=y_k, k=1 \ldots n+1$,\\
+	Задача: найти $p \in \mathbb{P}_n$ т.ч. $p(x_k)=y_k, k=0 \ldots n$,\\
 	где $\mathbb{P}_n$ -- многочлены степени не выше $n$\\
 	
 	\noindent Введём "базисные" многочлены:\\
@@ -90,9 +90,22 @@
 	\end{equation}
 	
 	\newpage
-	\section{Ищем вес}
+	\section{Ищем веса в получебышёвских планах}
+	Фиксируем $x \in \mathbb{R}$\\
 	Пусть $f(x) = (1, x, \ldots, x^m)^\mathrm{T}$, $c=f'(x)$\\
-	Та самая система для плана с $n$ узлами имеет вид:
+	
+	\noindent Рассмотрим план
+	\[
+		\xi = 
+		\left(
+		\begin{matrix}
+		x_1 \ x_2 \ldots x_n \\
+		\omega_1 \ \omega_2 \ldots \omega_n	
+		\end{matrix}
+		\right)
+	\]
+	
+	\noindent Та самая система для плана с $n$ узлами имеет вид:
 	\[
 	c = h M(\xi) p = h \sum_{k=1}^{n} \omega_k <p,f(x_k)> f(x_k)
 	\]	
@@ -128,7 +141,7 @@
 	
 	\noindent Нетрудно видеть, что наша система эквивалентна вот такому:
 	\[
-	A(p) = 0, \quad \forall p \in {1, x, \ldots, x^m}
+	A(p) = 0, \quad \forall p \in \lbrace 1, x, \ldots, x^m \rbrace
 	\]
 	
 	\noindent Т.к $A$ линейно, то это в свою очередь эквивалентно
@@ -240,5 +253,143 @@
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
 	\]
 	
+	\newpage
+	\section{Ищем веса в чебышёвских планах}
+	Фиксируем $x \in \mathbb{R}$\\
+	Пусть $f(x) = (1, x, \ldots, x^m)^\mathrm{T}$, $c=f'(x)$\\
+	
+	\noindent Рассмотрим план
+	\[
+	\xi = 
+	\left(
+	\begin{matrix}
+		x_1 \ x_2 \ldots x_n \\
+		\omega_1 \ \omega_2 \ldots \omega_n	
+	\end{matrix}
+	\right)
+	\]
+	
+	\noindent Та самая система для плана с $n$ узлами имеет вид:
+	\[
+	c = h M(\xi) p = h \sum_{k=1}^{n} \omega_k <p,f(x_k)> f(x_k)
+	\]	
+	
+	\noindent или, c учётом $h = (\lambda ^*)^{-1}$ и чередования знаков т.е. $<p,f(x_k)> = (-1)^{k+1}$
+	\[
+	\lambda ^*
+	\begin{pmatrix}
+		0 \\
+		1 \\
+		\vdots \\
+		m x^{m-1}
+	\end{pmatrix} = 
+	\sum_{k=1}^{n} a_k 
+	\begin{pmatrix}
+		1 \\
+		x_k \\
+		\vdots \\
+		x_k^{m}
+	\end{pmatrix}, \quad a_k = \omega_k <p,f(x_k)>
+	\]
+	
+	\noindent Введём линейные операторы $A_1, A_2, A: \mathbb{P}_m \to \mathbb{R}$:
+	\[
+	A_1(p) := \lambda^* p'(x)
+	\]
+	\[
+	A_2(p) := \sum_{k=1}^{n} a_k p(x_k)
+	\]
+	\[
+	A(p) := A_1(p) - A_2(p)
+	\]
+	
+	\noindent Нетрудно видеть, что наша система эквивалентна вот такому:
+	\[
+	A(p) = 0, \quad \forall p \in \lbrace 1, x, \ldots, x^m \rbrace
+	\]
+	
+	\noindent Т.к $A$ линейно, то это в свою очередь эквивалентно
+	\begin{equation}
+		A(p) = 0, \quad \forall p \in \mathbb{P}_m
+%		\label{eq:cond1}
+	\end{equation}
+	
+	\noindent \textbf{Всюду далее считаем} $\mathbf{n = m+1}$.\\ 
+	
+
+	\noindent Вспоминаем, что \eqref{eq:lagr_expansion}  $\forall p \in \mathbb{P}_m$ даёт нам
+	\[
+	p(t) = 
+	\sum_{k=1}^{m+1} p(x_k) L_k(t), \  \forall t \in \mathbb{R}
+	\]
+	
+	\noindent Дифференцируя это равенство по $t$ и подставляя $t=x$ получаем 
+	\[
+	p'(x) = 
+	\sum_{k=1}^{m+1} p(x_k) L_k'(x)
+	\]
+	
+	
+	\noindent Получили, что $\forall p \in \mathbb{P}_m$
+	\begin{equation}
+		\lambda^* p'(x) = 
+		\sum_{k=1}^{m+1} p(x_k) ( \lambda^* L_k'(x) ) 
+		\label{eq:re1_2}
+	\end{equation}
+	
+	\noindent Но из условия \eqref{eq:cond1} 
+	\[
+	A(p) = 0, \quad \forall p \in \mathbb{P}_m
+	\]
+	
+	\noindent То есть $\forall p \in \mathbb{P}_m$
+	\begin{equation}
+		\lambda^* p'(x) = 
+		\sum_{k=1}^{m+1} p(x_k) ( a_k ) 
+		\label{eq:re2_2}
+	\end{equation}
+	
+	\noindent Из \eqref{eq:re1_2} и \eqref{eq:re2_2} получаем $\forall p \in \mathbb{P}_m$
+	\[
+	\sum_{k=1}^{m+1} p(x_k) ( a_k ) = \sum_{k=1}^{m+1} p(x_k) ( \lambda^* L_k'(x) ) 
+	\] 
+	
+	\noindent Выбирая в качестве $p$ штуки которые равны $1$ и $0$ где надо ($L_k(x) ???$), делаем вывод
+	\[
+	a_k = \lambda^* L_k'(x), \ \forall k \in 1 \ldots m+1 
+	\]
+	\[
+	\omega_k (-1)^{k+1} = \lambda^* L_k'(x), \ \forall k \in 1 \ldots m+1 
+	\]
+	\[
+	\omega_k  = (-1)^{k+1} \lambda^* L_k'(x), \ \forall k \in 1 \ldots m+1 
+	\]
+	
+	
+	\noindent Юзая условие на веса $\sum_{k=1}^{m+1} \omega_k = 1$ ищем лямбду:
+	\[
+	1 = \sum_{k=1}^{m+1} \omega_k = \sum_{k=1}^{m+1} (-1)^{k+1} \lambda^* L_k'(x) = \lambda^* \sum_{k=1}^{m+1} (-1)^{k+1}  L_k'(x)
+	\]
+	
+	\noindent получаем
+	\[
+	\lambda^* = \left( \sum_{k=1}^{m+1} (-1)^{k+1}  L_k'(x) \right) ^ {-1}
+	\]
+	
+	\noindent финальное выражение для весов
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m+1} (-1)^{k+1}  L_k'(x)
+	}, \ \forall k \in 1 \ldots m+1 
+	\]
+	
+	\[
+	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m+1}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m+1
+	\]
 	
 \end{document}
