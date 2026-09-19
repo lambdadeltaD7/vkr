@@ -1,0 +1,976 @@
+\documentclass[10pt,slidestop,usepdftitle=false]{beamer}
+\usepackage[accumulated]{beamerseminar}
+\usepackage{beamertexpower}
+\usepackage{beamerthemeshadow}
+\usepackage[T2A]{fontenc}       %поддержка кириллицы
+\usepackage[utf8]{inputenc}   %пока бибтех не дружит до конца с юникодом
+\usepackage[russian]{babel}     %определение языков в документе
+\usepackage{amssymb,amsmath}    %математика
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\newcommand{\eex}{\end{example}}
+\newcommand{\bea}{\begin{eqnarray*}}
+\newcommand{\eea}{\end{eqnarray*} }
+\newcommand{\be}{\begin{eqnarray}}
+\newcommand{\ee}{\end{eqnarray} } 
+\DeclareMathOperator*{\argsup}{arg\,sup}
+\DeclareMathOperator*{\arginf}{arg\,inf}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title[Линейный и нелинейный регрессионный анализ] 
+{Линейный и нелинейный регрессионный анализ}
+\author{}
+\date{}
+
+\begin{document}
+
+\newtheorem{defin}{Определение}
+\newtheorem{mytheorem}{Теорема}
+\newtheorem{mylemma}{Лемма}
+\newtheorem{proposition}{Утверждение}
+\newtheorem{algorithm}{Алгоритм}
+\newtheorem{rem}{Замечание}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\begin{frame}{Содержание}
+ \begin{itemize}
+ 
+ \bigskip 
+
+ \item
+
+{\bf Введение}
+
+\bigskip 
+\bigskip
+\pause    
+ \item
+ 
+{\bf 
+ Постановка задачи регрессионного анализа} 
+\bigskip 
+\bigskip 
+\pause 
+ \item
+ 
+ 
+{\bf Линейные модели. Свойства оценок по методу наименьших квадратов} 
+ 
+ \bigskip 
+\bigskip 
+\pause
+ \item
+ 
+ 
+ {\bf Доказательство
+теоремы Гаусса-Маркова}
+
+\bigskip 
+\bigskip 
+\pause 
+ \item
+
+{\bf Нелинейные модели. Асимптотические свойства оценок параметров} 
+
+
+\end{itemize}
+\end{frame}
+\begin{frame}
+Началом систематического развития теории планирования эксперимента явились работы выдающегося английского статистика сэра Рональда Фишера, вошедшие в его широко известную монографию (Fisher, 1935). 
+
+\bigskip
+\pause
+
+В этих работах комбинаторные методы применялись для выбора уровней факторов с целью повышения информативности эксперимента в задачах дисперсионного анализа. Первоначальным мотивом этих исследований была проблема повышения урожайности сельскохозяйственных культур.
+
+\bigskip
+\bigskip
+\pause
+
+ Однако глубокие математические результаты, полученные Фишером, послужили источником для развития самостоятельной ветви математической статистики, имеющей свою внутреннюю логику и широчайший спектр приложений.
+
+\end{frame}
+\begin{frame}
+В 50-е годы XX века, в работах американских математиков Г. Элвинга (Elfving, 1952) и Г. Чернова (Chernoff, 1953) возникло новое направление, получившее название теории оптимального планирования эксперимента. 
+\bigskip
+
+\pause
+
+С конца 50-х годов эта теория систематически развивалась в работах американских математиков Дж. Кифера и Дж. Вольфовица, а с конца 60-х значительный вклад к ее развитие внесли российские математики В.В. Федоров, Г.К. Круг и многие другие.
+
+\bigskip
+
+\pause
+
+В основе этой теории лежит понятие плана эксперимента как дискретной вероятностной меры, а под оптимальным планом понимается план, доставляющий экстремальное значение некоторой выпуклой (или вогнутой) функции, заданной на множестве информационных матриц.
+
+\bigskip
+\pause
+
+Родственное направление, связанное с исследованием поверхности отклика для нахождения его экстремальных значений, было инициировано в работах американского статистика Дж. Бокса  В России это направление развивалось в работах В.В. Налимова и его учеников (первая российская книга на эту тему – Налимов, Чернова, 1965).
+
+
+\end{frame}
+\begin{frame}{Постановка задачи регрессионного анализа}
+ Рассмотрим уравнение:
+ \begin{align*}
+	y_{i} = \eta(x_i,\theta) + \varepsilon_{i}, \qquad &i = 1, \dots, N,
+ \end{align*}
+ где 
+ \begin{itemize}
+ \item $y_1,\dots,y_N \in \mathbb{R}$ --- результаты наблюдений,
+ \pause
+ \item $x_1,\dots,x_N \in \mathcal{X}$ --- условия проведения эксперимента (могут повторяться),
+ \pause
+ \item $\mathcal{X}$- некоторое заданное множество, например, ограниченное замкнутое подмножество конечномерного евклидова пространства,
+ \pause
+ \item Функция $\eta(x,\theta) : \mathcal{X} \times \Theta \rightarrow \mathbb{R}$ называется регрессионной моделью или функцией регрессии,
+ \pause
+ \item $\theta = (\theta_1,\dots,\theta_m)^T \in \Theta$ --- вектор неизвестных параметров,
+ \pause
+ \item $\varepsilon_1, \dots, \varepsilon_N$ --- случайные ошибки.
+ \end{itemize}
+ Это уравнение называется уравнением регрессии.
+\end{frame}
+
+\begin{frame}
+Уже в простейшем случае,когда
+ \begin{align*}
+\eta(x,\theta)=\theta_1 +\theta_2 x
+ \end{align*}
+уравнение регрессии имеет многочисленные применения. Например, в экономике оно описывает соотношение спрос - предложение.
+\pause
+\bigskip 
+
+Некоторые конкретные модели будут подробно рассмотрены в данном курсе. 
+\pause
+\bigskip
+
+Основные понятия, относящиеся к линейным по параметрам моделям, можно найти в учебном пособии 
+
+\bigskip
+
+В.Б.Мелас, П.В.Шпелев "Планирование и анализ для регрессионных моделей", СПб, изд-во СПбГУ,2014.
+\pause
+\bigskip
+
+По нелинейным моделям см. В.Б.Мелас "Локально оптимальные планы эксперимента". СПб, изд-во СПбГТУ, 1999.
+\end{frame}
+
+\begin{frame}
+Уравнение регрессии:
+ \begin{align*}
+	y_{i} = \eta(x_i,\theta)+\varepsilon_{i}, \qquad &i = 1, \dots, N.
+ \end{align*}
+ \pause{Два разных типа задач по оценке параметров:}
+ \begin{enumerate}
+ \item<3-> Дана совместная выборка $(x_1, y_1), \dots, (x_N, y_N)$ и некоторая априорная информация о виде ошибок наблюдения $\varepsilon_1, \dots,\varepsilon_N$. 
+ 
+ \vspace{2mm}
+ 
+ Необходимо найти функцию $\eta(x,\theta)$, которая наилучшим с некоторой точки зрения образом аппроксимирует экспериментальные данные, и оценить ее параметры.
+
+ \vspace{2mm} 
+ 
+ \item<4-> Дана функция $\eta(x,\theta)$ с точностью до неизвестных параметров $\theta$ и некоторая априорная информация о виде ошибок наблюдения $\varepsilon_1, \dots,\varepsilon_N$. 
+  
+  \vspace{2mm}
+ 
+ Необходимо таким образом выбрать условия проведения эксперимента $x_1,\dots,x_N$, чтобы по получаемой впоследствии выборке $(x_1, y_1), \dots, (x_N, y_N)$ можно было бы наилучшим с некоторой точки зрения образом оценить параметры  $\theta$.
+ \end{enumerate}
+\end{frame}
+
+\begin{frame}
+Уравнение регрессии:
+ \begin{align*}
+	y_{i} = \eta(x_i,\theta) + \varepsilon_{i}, \qquad &i = 1, \dots, N.
+ \end{align*}
+ Под планом эксперимента можно понимать совокупность не обязательно различных точек $x_1, \dots, x_N$, представлящих собой условия проведения экспериментов.  
+
+\pause
+Однако удобнее рассматривать план как дискретную вероятностную меру, приписывая каждой точке "вес" $1/N$.
+\begin{defin}
+Точный план эксперимента --- дискретная вероятностная мера 
+\begin{align*}
+\xi_N =
+\begin{bmatrix}
+	x_1 & \dots & x_N \\ 
+	{1}/{N} & \dots & {1}/{N}
+\end{bmatrix},
+\end{align*}
+где $x_1,\dots,x_N \in \mathcal{X}$ --- не обязательно различны. 
+\end{defin}
+\pause
+Будем пока считать, что точный план эксперимента фиксирован. Разберемся с тем, как оценивать параметры модели при фиксированном плане. 
+\end{frame}
+
+\begin{frame}{Линейные модели. Свойства оценок по методу наименьших квадратов }
+Уравнение регрессии:
+ \begin{align*}
+	y_{i} = \eta(x_i,\theta) + \varepsilon_{i}, \qquad &i = 1, \dots, N.
+ \end{align*}
+ Наши предположения
+ \begin{enumerate}
+ \item Случайные ошибки $\varepsilon_1,\dots,\varepsilon_N$ обладают свойствами:   
+ 
+ $\mathbf{E}\varepsilon_i = 0$,
+ $\mathbf{E}\varepsilon_i^2 = \sigma^2$, 
+ $\mathbf{E}\varepsilon_i\varepsilon_j = 0,\ (i\ne j)$.
+ 
+ \item  Параметры модели вещественные, т.е. $\Theta = \mathbb{R}^m$.
+ \end{enumerate}
+\pause 
+
+Регрессионная модель называется линейной (по параметрам), если она может быть записана в виде
+ \begin{align*}
+\eta(x,\theta) = \theta_1 f_1(x) + \dots + \theta_m f_m(x),
+\end{align*}где
+ \begin{align*}
+ f_1(x), \dots , f_m(x)-
+\end{align*}
+заданные функции, например, $f_i= x^{i-1},i=1,2,\dots,m$
+(в этом случае модель называется полиномиальной).
+
+\end{frame}
+ \begin{frame}
+Введем обозначения
+\begin{align*}
+Y =\left[\begin{array}{c}
+                     y_1  \\
+                     \cdots \\
+                     y_N \\
+                   \end{array}\right],\ \ \
+                   X= \left[\begin{array}{ccc}
+                     f_1(x_1) & \ldots & f_m(x_1) \\
+                     \cdots & \cdots & \cdots \\
+                     f_1(x_N) & \ldots & f_m(x_N) \\
+                   \end{array}\right],  \ \ \ 
+                   \varepsilon = \left[\begin{array}{c}
+                     \varepsilon_1  \\
+                     \cdots \\
+                     \varepsilon_N \\
+                   \end{array}\right]
+\end{align*}
+Для линейной модели уравнение регрессии переписывается как
+\begin{align*}
+Y = X \theta + \varepsilon.
+\end{align*}
+\end{frame}
+\begin{frame}
+
+\pause
+Гауссом был предложен метод наименьших квадратов.
+
+\pause
+\bigskip
+Оценка вектора параметров $\theta$ по методу наименьших квадратов определяется
+следующим образом
+\begin{align*}
+\widehat{\theta} = \argmin_{\theta \in R^{m}}\left(Y-X\theta\right)^T\left(Y-X\theta\right).
+\end{align*}
+
+\pause
+\bigskip
+Справедлива следующая лемма.
+
+\begin{lemma}{Лемма 1.}
+Для любой матрицы $X$ и вектора $Y$ соответствующих
+размерностей, система уравнений
+\begin{eqnarray}
+X^TX\theta=X^TY, \label{SPV:equat17}
+\end{eqnarray}
+имеет решение. Причем вектор $\theta^*$, удовлетворяющий системе,
+является МНК-оценкой. 
+\label{lem1.1.1} 
+\end{lemma}
+\end{frame}
+\begin{frame}
+{\bf Доказательство леммы \ref{lem1.1.1}}.
+
+Для произвольной матрицы А векторное пространство, порожденное ее
+столбцами, обозначим через $\mathcal{L}(A).$
+\bigskip
+\pause
+
+ Покажем, что
+\begin{eqnarray}
+\mathcal{L}(A^T)=\mathcal{L}(A^TA). \label{SPV:equat18}
+\end{eqnarray}
+Действительно, для любого вектора $b,$ ортогонального пространству
+$\mathcal{L}(A^T)$, имеет место равенство $b^TA^T=\textbf{0}
+\Rightarrow b^TA^TA=\textbf{0}$.
+\bigskip
+\pause
+
+В обратную сторону, если вектор $b$ ортогонален пространству
+$\mathcal{L}(A^TA)$, т.е. $b^TA^TA=\textbf{0},$ то выполнено
+$\textbf{0}=b^TA^TAb=(Ab)^TAb$ и, следовательно, $bA^T=\textbf{0}$.
+\pause
+\bigskip
+
+Из равенства \eqref{SPV:equat18} автоматически следует, что для
+любого вектора $X^TY \in \mathcal{L}(X^T)$ существует вектор
+$X^TX\theta^* \in \mathcal{L}(X^TX)$ такой, что $X^TX\theta^*=X^TY$.
+\end{frame}
+\begin{frame}
+Покажем теперь, что любое решение уравнения \eqref{SPV:equat17}
+является МНК-оценкой, т.е. минимизирует функцию
+\begin{eqnarray*}
+\left(Y-X\theta\right)^T\left(Y-X\theta\right)
+\end{eqnarray*}
+\pause
+\bigskip
+
+Обозначим через $\widehat{\theta}$ произвольное решение
+\eqref{SPV:equat17}, имеем:
+\begin{eqnarray*}
+\left(Y-X\theta\right)^T\left(Y-X\theta\right)=\\
+\left(Y-X\widehat{\theta}+X(\widehat{\theta}-\theta)\right)^T\left(Y-X\widehat{\theta}+X(\widehat{\theta}-\theta)\right)\stackrel{*}{=}\\
+\left(Y-X\widehat{\theta}\right)^T\left(Y-X\widehat{\theta}\right)+(\widehat{\theta}-\theta)^TX^TX(\widehat{\theta}-\theta)\geq\\
+\left(Y-X\widehat{\theta}\right)^T\left(Y-X\widehat{\theta}\right).
+\end{eqnarray*}
+
+\pause
+
+Равенство $"*"$ выполнено в силу того, что $\widehat{\theta}$
+является решением уравнения \eqref{SPV:equat17} и, следовательно,
+\begin{eqnarray*}
+(\widehat{\theta}-\theta)^TX^T\left(Y-X\widehat{\theta}\right)=(\widehat{\theta}-\theta)^T\left(X^TY-X^TX\widehat{\theta}\right)=0
+\end{eqnarray*}
+
+\
+ Таким образом, минимум
+$\left(Y-X\theta\right)^T\left(Y-X\theta\right)$ достигается при
+$\theta=\widehat{\theta}$. Лемма доказана. $$ \eqno \Box$$
+\end{frame}
+\begin{frame}
+Заметим,что если матрица $X^TX$ невырожденная, то система
+\eqref{SPV:equat17} имеет единственное решение:
+\begin{eqnarray}\label{LSE}
+\widehat{\theta}=(X^TX)^{-1}X^TY
+\end{eqnarray}
+
+\bigskip
+\pause
+
+Требования, предъявляемые к оценкам:
+\begin{enumerate}
+\bigskip
+\pause
+
+\item $\mathbf{E} \widehat\theta = \theta$ --- несмещенность,
+\pause
+\bigskip
+
+\item $\widehat\theta = S Y$ --- линейность,
+\bigskip
+\pause
+
+\item $\forall z \in \mathbb{R}^m$, $\forall \tilde{\theta} : \mathbf{E}\tilde{\theta} = \theta$, $\mathbf{D}z^T(\widehat\theta-\theta) \leq \mathbf{D}z^T(\tilde\theta-\theta)$ --- минимальность дисперсии.
+\end{enumerate}
+\bigskip
+\pause
+
+Будем предполагать, что матрица $X^T X$ - не вырожденная.
+
+\pause
+\begin{mytheorem}[Гаусса-Маркова]
+Если матрица $X^T X$ - не вырожденная, то оценка по методу наименьших квадратов~(\ref{LSE}) является наилучшей (в смысле требования 3) оценкой в классе линейных несмещенных оценок.
+
+Кроме того  , ковариационная матрица оценки имеет вид:
+$$
+\mathbf{D}\widehat\theta = \sigma^2 \left( X^T X \right)^{-1}.
+$$
+\end{mytheorem}
+\end{frame}
+\begin{frame}
+Рассмотрим для примера линейную по параметрам модель
+\begin{eqnarray*}
+y_j = a +
+bt_j+\epsilon_j,\ \ j=1,\ldots, N,
+\end{eqnarray*}
+где $t_1,\ldots,t_N$ --- некоторые заданные вещественные числа.
+\begin{eqnarray*}
+X= \left( \begin{array}{cc}
+          1 & t_1 \\
+          \vdots & \vdots \\
+          1 & t_N \\
+          \end{array}
+          \right), \ \ X^TX= \left( \begin{array}{cc}
+          N & \sum_{i}t_i \\
+          \sum_{i}t_i & \sum_{i}t_i^2 \\
+          \end{array}
+          \right).
+\end{eqnarray*}
+
+\pause
+Применяя известную формулу для обратной матрицы, получаем
+\begin{eqnarray*}
+(X^TX)^{-1}= \left( \begin{array}{cc}
+          \frac{\sum_{i}t_i^2}{\Delta}  &\frac{ -\sum_{i}t_i}{\Delta} \\
+         \frac{ -\sum_{i}t_i}{\Delta} & \frac{N}{\Delta} \\
+          \end{array}
+          \right),\ \ \Delta= N\sum_{i}t_i^2-\left(\sum_{i}t_i\right)^2.
+\end{eqnarray*}
+
+\pause
+ 
+Искомая оценка
+\begin{eqnarray*}
+      \left(
+       \begin{array}{c}
+         \widehat{a} \\
+         \widehat{b} \\
+       \end{array}
+              \right)=(X^TX)^{-1}X^TY=\left(
+                              \begin{array}{c}
+                                \frac{\sum_{i}t_i^2\sum_{i}y_i-\sum_{i}t_i\sum_{i}y_it_i}{\Delta} \\
+                                \frac{N\sum_{i}y_it_i-\sum_{i}t_i\sum_{i}y_i}{\Delta} \\
+                              \end{array}
+                            \right).
+\end{eqnarray*}
+
+\end{frame}
+\begin{frame}{Доказательство
+теоремы Гаусса-Маркова.}
+
+ Для доказательства нам
+потребуются следующие вспомогательные утверждения:
+\begin{lemma}{Лемма 2.}
+МНК-оценка является линейно несмещенной оценкой (т.е. для нее
+выполнены требования (a)-(b)).
+ \label{lemMSE1}
+\end{lemma}
+{\bf Доказательство леммы \ref{lemMSE1}} Линейность МНК-оценки
+очевидна ($S=(X^TX)^{-1}X^T$), проверим несмещенность. Посчитаем
+математическое ожидание:
+\begin{eqnarray*}
+E\widehat{\theta}=ESY=SEY=SE(X\theta+\epsilon)=SX\theta=
+(X^TX)^{-1}X^TX\theta=\theta
+\end{eqnarray*}
+ Лемма доказана. $$ \eqno \Box$$
+ \end{frame}
+\begin{frame}
+Теперь сформулируем более общее утверждение о несмещенности оценки.
+\begin{lemma}{Лемма 3.}
+Для того, чтобы оценка $\widetilde{\theta}=AY$ была несмещенной,
+необходимо и достаточно, чтобы выполнялось равенство:
+\begin{eqnarray*}
+AX=I
+\end{eqnarray*}
+ \label{lemMSE2}
+\end{lemma}
+Эта лемма является основным инструментом доказательства
+теоремы Гаусса-Маркова.
+
+\pause
+
+{\bf Доказательство леммы \ref{lemMSE2}} $\newline$
+\textbf{Достаточность.} Пусть $AX=I,$ тогда
+\begin{eqnarray*}
+E\widetilde{\theta}=EAY= \\
+AE(X\theta+\epsilon)=\underbrace{AX}_{I}\theta=\theta.
+\end{eqnarray*}
+Таким образом, оценка $\widetilde{\theta}=AY$ является несмещенной оценкой.
+\end{frame}
+\begin{frame}
+\textbf{Необходимость.} Пусть, теперь, выполнено
+$E\widetilde{\theta}=\theta$, т.е. оценка несмещенная. Тогда получаем
+$E\widetilde{\theta}= AX\theta=\theta$. Следовательно,
+$$
+AX\theta=\theta.
+$$
+\bigskip
+\pause
+Так
+как это равенство должно быть выполнено для любого вектора
+$\theta$, можем в качестве него выбрать вектор
+$e_i=(0,\ldots,0,1,0,\ldots,0)^T$ с единицей на $i$-м месте.
+
+\bigskip
+\pause
+Проделав это для всех $i=1,\ldots,m$, получим систему уравнений
+$AX=I$, что завершает доказательство.
+$$ \eqno \Box$$
+\end{frame}
+\begin{frame}
+\begin{lemma}{Лемма 4.}
+В предположениях теоремы Гаусса - Маркова дисперсионная матрица любой
+линейной несмещенной оценки $\widetilde{\theta}=AY$ имеет вид:
+\begin{eqnarray*}
+D_{\widetilde{\theta}}=\sigma^2AA^T.
+\end{eqnarray*}
+В частном случае, если $\widetilde{\theta}$ - МНК-оценка, то
+\begin{eqnarray*}
+D_{\widetilde{\theta}}=\sigma^2(X^TX)^{-1}.
+\end{eqnarray*}
+ \label{lemMSE3}
+\end{lemma}
+
+\pause
+
+{\bf Доказательство леммы \ref{lemMSE3}} вычислим дисперсионную матрицу оценки
+$\widetilde{\theta}$:
+\begin{eqnarray*}
+D_{\widetilde{\theta}}=E(\widetilde{\theta}-\theta)(\widetilde{\theta}-\theta)^T=
+E(AY-\theta)(AY-\theta)^T=EAYY^TA^T-\theta\theta^T,
+\end{eqnarray*}
+так как $EAY=(EY^TA^T)^T=\theta$. 
+\pause
+С другой стороны,
+\begin{eqnarray*}
+EAYY^TA^T=AE(YY^T)A^T=AE(X\theta+\epsilon)(X\theta+\epsilon)^TA^T=\\
+\underbrace{AX}_I\theta\theta^T{\underbrace{X^TA}_I}^T+\sigma^2AA^T=\theta\theta^T+\sigma^2AA^T
+\end{eqnarray*}
+
+\pause
+
+Таким образом, получаем, что $D_{\widetilde{\theta}}=\sigma^2AA^T$
+и, в частности, в случае МНК-оценки (т.е. при $A=(X^TX^T)^{-1}X$)
+\begin{eqnarray*}
+D_{\widehat{\theta}}=\sigma^2AA^T=\sigma^2(X^TX)^{-1}X^TX(X^TX)^{-1}=\sigma^2(X^TX)^{-1}.
+\end{eqnarray*}
+Лемма доказана. $$ \eqno \Box$$ 
+\end{frame}
+\begin{frame}
+Вернемся теперь к доказательству
+теоремы. 
+Проверим, что выполняется неравенство:
+\begin{eqnarray*}
+D_{\widehat{\theta}}\leq D_{\widetilde{\theta}}.
+\end{eqnarray*}
+\pause
+Обозначим матрицу $(X^TX)^{-1}X^T$ через S. Для произвольной
+несмещенной оценки $\widetilde{\theta}=AY$ имеем (в силу Леммы 4)
+\begin{eqnarray*}
+D_{\widetilde{\theta}}=\sigma^2 AA^T,
+\end{eqnarray*}
+а для оценки метода наименьших квадратов
+\begin{eqnarray*}
+D_{\widehat{\theta}}=\sigma^2 SS^T,
+\end{eqnarray*}.
+Значит нам достаточно доказать, что 
+\begin{eqnarray*}
+AA^T\geq  SS^T.
+\end{eqnarray*}
+\pause
+Заметим, что для произвольной матрицы $L$
+\begin{eqnarray*}
+LL^T\geq 0,
+\end{eqnarray*}
+где 0 - нулевая матрица.
+Подставляя сюда $L= A-S$ и произведя вычисления с учетом того,что $AX=I$,
+получим 
+$$
+LL^T= AA^T-SS^T\geq 0,\, AA^T\geq SS^T.
+$$
+%откуда следует требуемое неравенство.
+%Теорема  доказана. $$ \eqno \Box$$
+\end{frame}
+\begin{frame}
+{\bf МНК-оценка в вырожденном случае.}
+
+В предыдущем параграфе мы рассматривали задачу нахождения МНК-оценки
+в случае, когда матрица $X^TX$ невырожденная. В данном параграфе мы
+обобщим полученные результаты для 
+когда ранг матрицы $X^TX$ меньше числа оцениваемых параметров. 
+\bigskip
+\pause
+
+Заметим, что  матрица $X^TX$ является вырожденной, напрример,  в задачах дисперсионного анализа.
+\bigskip
+\pause
+
+Итак, пусть $X^TX$ - вырожденная матрица. В этом случае, под
+МНК-оценкой,
+ по-прежнему, понимается вектор, минимизирующий $\|Y-X\theta \|^2$ и,
+ согласно лемме \ref{lem1.1.1}, являющийся решением нормального уравнения
+ \begin{eqnarray*}
+X^TX\theta=X^TY.
+\end{eqnarray*}
+\bigskip
+\pause
+
+Как уже было показано, эта cистема уравнений совместна. Однако, в
+вырожденном случае, она имеет бесконечное множество решений, т.е.
+вектор $\widehat{\theta},$ являющийся её решением, определен не однозначно. 
+\end{frame}
+\begin{frame}
+ 
+ 
+
+Пусть имеется произвольная система уравнений $Ax=y,$
+где $x\in R^{n},y\in R^{m}$- вектора , $A\in R^{n\times m}$ -
+матрица соответствующей размерности (не обязательно квадратная).
+\bigskip
+\pause
+
+{\bf Определение. Обобщенно-обратной для матрицы $A$, называется матрица порядка
+$n\times m,$ обозначаемая $A^{-}$, такая, что для любого вектора
+$y$, для которого система $Ax=y$ совместна, вектор $x=A^{-}y$
+является ее решением.} 
+\pause 
+\bigskip
+
+ Для начала, отметим одно важное свойство,
+которым обладает матрица $A^{-}$, а потом ответим на вопрос о ее
+существовании.
+\begin{lemma}{Лемма 5.}
+Для того, чтобы матрица $B$ являлась обобщенно-обратной матрицей для
+матрицы $A$, необходимо и достаточно, чтобы $B$ удовлетворяла
+равенству:
+\begin{eqnarray*}
+ABA=A.
+\end{eqnarray*}
+ \label{lemGIM1}
+\end{lemma}
+\end{frame}
+\begin{frame}
+
+{\bf Доказательство леммы \ref{lemGIM1}}
+
+Пусть для матрицы $A$ существует обобщенно-обратная матрица
+$B=A^{-}$. Выберем в качестве $y$ $i$-ый столбец матрицы $A$.
+Система
+\begin{eqnarray*}
+Ax=a_i,
+\end{eqnarray*}
+очевидно, совместна. Ее решение существует. Например, $x=e_{i}$.
+Вектор $x=A^{-}a_i,$ по определению, является решением этой системы.
+
+\pause
+
+Из этого следует, что
+\begin{eqnarray*}
+Ax=AA^{-}a_i=a_i\ \ \forall i,
+\end{eqnarray*}
+что, в свою очередь, означает, что выполнено равенство $AA^{-}A=A$.
+\bigskip
+\pause
+
+Пусть, теперь, система $Ax=y$ совместна и матрица $B$ удовлетворяет равенству
+\begin{eqnarray*}
+ABA=A.
+\end{eqnarray*}
+Тогда, умножая обе части этого равенства справа на $x$, получим
+\begin{eqnarray*}
+AB\underbrace{Ax}_y=\underbrace{Ax}_y\ \ \Rightarrow\ \ ABy=y,
+\end{eqnarray*}
+и, следовательно, вектор $x=By$ является решением системы $Ax=y$.
+\bigskip
+\pause
+
+Это означает, по определению, что матрица $B$ является
+обобщенно-обратной для $A$. То есть $B=A^{-}$.
+ Лемма доказана. $$ \eqno \Box$$
+ \end{frame}
+ 
+\begin{frame}
+Теперь рассмотрим вопрос существования обобщенно-обратной матрицы.
+Справедлива следующая лемма.
+\begin{lemma}{Лемма 6.}
+Для всякой матрицы $A$ существует о.о. матрица $A^{-}$.
+ \label{lemGIM2}
+\end{lemma}
+{\bf Доказательство леммы } Сперва рассмотрим случай,
+когда $A$ - симметричная квадратная матрица. По теореме о
+спектральном разложении, в этом случае, матрицу $A$ можно
+представить в виде
+\begin{eqnarray*}
+A=P\Lambda P^T, \ \ PP^T=P^TP=I,
+\end{eqnarray*}
+$\Lambda$ - матрица, на диагонали которой стоят собственные числа
+матрицы $A$,
+ а внедиагональные элементы равны 0.
+Без ограничения общности можно считать, что матрица $\Lambda$ имеет
+вид:
+\begin{eqnarray*}
+\Lambda=\left(
+          \begin{array}{cc}
+            \Lambda_1 & 0 \\
+            0 & 0 \\
+          \end{array}
+        \right),
+\end{eqnarray*}
+где $\Lambda_1$ имеет ненулевые диагональные элементы. Положим,
+\begin{eqnarray*}
+A^{-}=P\Lambda^{-}P^T,\ \  \Lambda^{-}=\left(
+          \begin{array}{cc}
+            \Lambda_1^{-1} & 0 \\
+            0 & 0 \\
+          \end{array}
+        \right).
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+Проверим, что $AA^{-}A=A$:
+\begin{eqnarray*}
+AA^{-}A=P\Lambda P^TP\Lambda^{-}P^TP\Lambda P^T=P\Lambda \Lambda^{-}
+\Lambda P^T=P\Lambda P^T=A.
+\end{eqnarray*}
+Следовательно, по лемме \ref{lemGIM1}, матрица $A^{-}$ является
+обобщенно-обратной.
+
+Для произвольной матрицы $A$ существует представление $A=B\Lambda
+C$, где $B$ и $C$ - невырожденные матрицы, $\Lambda$ - диагональная.
+Так же, как и в предыдущем случае, положим:
+\begin{eqnarray*}
+\Lambda=\left(
+          \begin{array}{cc}
+            \Lambda_1 & 0 \\
+            0 & 0 \\
+          \end{array}
+        \right), \ \ \Lambda^{-}=\left(
+          \begin{array}{cc}
+            \Lambda_1^{-1} & 0 \\
+            0 & 0 \\
+          \end{array}
+        \right),\ \ A^{-}=C^{-1}\Lambda^{-}B^{-1}.
+\end{eqnarray*}
+Несложно проверить, что для $A^{-}$ выполнено равенство $AA^{-}A=A$:
+\begin{eqnarray*}
+AA^{-}A=B\Lambda CC^{-1}\Lambda^{-}B^{-1}B\Lambda C=B\Lambda
+\Lambda^{-} \Lambda C=B\Lambda C=A.
+\end{eqnarray*}
+Следовательно, по лемме \ref{lemGIM1}, матрица $A^{-}$ является
+обобщенно-обратной.
+ Лемма доказана. $$ \eqno \Box$$
+ \end{frame}
+\begin{frame}
+Справедлива следующая теорема.
+
+\begin{theorem}
+Пусть $A^{-}$ какая-либо обобщенно-обратная для A матрица. И, пусть,
+$H=A^{-}A$. Тогда,
+\begin{itemize}
+    \item[(a)] $H^2=H$, т.е. матрица $H$ идемпотентная;
+    \item[(b)] $AH=A$ и ранг $A$ равен рангу $H$ и $tr(H);$
+    \item[(c)] Общее решение системы уравнений $Ax=0$ имеет вид
+    $x=(H-I)z$, где $z$-произвольный вектор;
+    \item[(d)] Общее решение совместной системы уравнений $Ax=y$ имеет вид
+    $x=A^{-}y+(H-I)z,$ где $z$ - произвольный вектор;
+    \item[(e)] Произведение $Tx$ принимает единственное значение для
+    всех $x$, удовлетворяющих системе $Ax=y$, тогда и только тогда,
+    когда $TH=T.$
+\end{itemize}
+\label{TheoGIM1}
+\end{theorem}
+\end{frame}
+\begin{frame}
+
+
+{\bf Доказательство теоремы.} Пункты $(a)-(e)$ следуют
+из леммы \ref{lemGIM1}. Прокомментируем вторую часть пункта $(b):$
+Пусть ранг $A$ равен $k$.
+\begin{eqnarray*}
+tr A^{-}A=tr C^{-1}\Lambda^{-}B^{-1}B\Lambda C=
+\\tr C^{-1}\Lambda^{-}\Lambda C =tr \Lambda^{-}\Lambda CC^{-1}=tr \Lambda^{-}\Lambda=tr
+I_k=k,
+\end{eqnarray*}
+где $I_{k}$ диагональная матрица с $k$ единицами на главной
+диагонали $k$- ранг матрицы $A$. Остальные ее элементы - нули. Мы
+воспользовались известным результатом $tr AB=tr BA$ (для любых
+согласованных матриц $A$, $B$).
+ Теорема доказана. $$ \eqno \Box$$
+\end{frame}
+\begin{frame}
+В случае, когда матрица $X$ имеет ранг меньший m, невозможно
+несмещенно оценить все параметры регрессионной модели
+$(Y,X\theta,\Sigma)$. Однако, можно оценить некоторые
+параметрические функции  $\tau=T\theta$. Вид оценки и условия
+оцениваемости определяются, в этом случае, в следующей теореме,
+являющейся аналогом теоремы Гаусса-Маркова для вырожденной матрицы
+$X^TX$.
+\end{frame}
+\begin{frame}
+\begin{theorem}
+Для классической регрессионной модели  и вектора
+ошибок, удовлетворяющего условию $E\epsilon =0$,
+\begin{itemize}
+    \item[(1)] параметрическая функция $\tau=T\theta$ ($T\in R^{k\times m}$, $k \in \{1,\ldots,m\}$) оцениваема
+тогда и только тогда, когда
+\begin{eqnarray*}
+T(X^TX)^{-}X^TX=T.
+\end{eqnarray*}
+   \item[(2)] Если выполнено условие $(1)$, оценка для $\tau$ имеет вид:
+\begin{eqnarray*}
+\widehat{\tau}= T(X^TX)^{-}X^TY,
+\end{eqnarray*}
+определена однозначно, и являются наилучшей линейной несмещенной
+оценкой. Ковариационная матрица оценки $\widehat{\tau}$  имеет вид:
+\begin{eqnarray*}
+D_{\widehat{\tau}}=\sigma^2D,\ \ D=T(X^TX)^{-}T^T.
+\end{eqnarray*}
+
+\end{itemize}
+\label{TheoGIM2}
+\end{theorem}
+
+
+
+\end{frame}
+\begin{frame}{Нелинейные модели. Асимптотические свойства оценок параметров}
+Вернемся снова к общему уравнению регрессии:
+ \begin{align*}
+	y_{i} = \eta(x_i,\theta) + \varepsilon_{i}, \qquad &i = 1, \dots, N.
+ \end{align*}
+ Пусть теперь $\eta(x,\theta)$ не обязательно линейная.
+\pause 
+ Будем предполагать, что
+
+ Случайные ошибки $\varepsilon_1,\dots,\varepsilon_N$ независимы, одинаково распределены и обладают свойствами:   
+ \begin{enumerate}
+ \item $\mathbf{E}\varepsilon_i = 0$,\\
+ \item $\mathbf{E}\varepsilon_i^2 = \sigma^2$. 
+ 
+ \end{enumerate}
+ \pause
+Оценка вектора $\theta$ по методу наименьших квадратов определяется как решение экстремальной задачи:
+\begin{gather*}
+    \widehat\theta = \argmin_{\theta \in \mathbb{R}^m} \sum_{i = 1}^N (\eta(x_i, \theta) - y_i)^2.
+\end{gather*}
+\pause
+Обсудим, какими асимптотическими свойствами обладает эта оценка.
+\end{frame}
+
+\begin{frame}
+Введем предположения:
+\begin{enumerate}
+    \item
+    Функция регрессии $\eta(x, \theta)$ непрерывна по $x$ и $\theta$;
+	\pause
+    \item
+    Существует $\xi$ такой что $ \mathcal L(\xi_N) \Rightarrow \mathcal L(\xi)$, т.е. 
+    $$
+        \int_\mathcal X g(x) d\xi_N(x) \rightarrow  \int_\mathcal X g(x) d \xi(x), \qquad \forall g \in \mathrm C(\mathcal X);
+    $$
+
+	\pause
+    \item Для любых $\theta$, $\overline\theta \in \Theta$
+    $$
+        \int_\mathcal X \left(\eta(x, \theta) - \eta(x, \overline \theta) \right)^2  d\xi(x) = 0 \; \Leftrightarrow \; \theta = \overline \theta;
+    $$
+
+	\pause
+    \item
+    $\eta \in C_\theta^2(\mathcal X \times \Theta)$;
+
+	\pause
+    \item
+    Истинное значение параметра $\theta_u$ является внутренней точкой $\Theta$;
+
+	\pause
+    \item
+    Матрица
+    $$
+        M(\xi, \theta) = \int_\mathcal X f(x, \theta) f^{T}(x, \theta)\, d\xi(x),
+    $$
+    где $
+    f(x, \theta) = {\left[\frac{\partial \eta(x, \theta)}{\partial \theta_1}, \dots, \frac{\partial \eta(x, \theta)}{\partial \theta_m}\right]}^{T}
+    $
+    не вырождена при $\theta = \theta_u$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+Обозначим
+\begin{gather}
+\label{GLSE}
+    \widehat\theta_N = \argmin_{\theta \in \mathbb{R}^m} \sum_{i = 1}^N (\eta(x_i, \theta) - y_i)^2.
+\end{gather}
+\begin{mytheorem}
+    Если выполнены предположения 1--3, то последовательность МНК-оценок сильно состоятельна,
+    т.е. при $N \to \infty$
+    \begin{gather*}
+        \widehat \theta_N \to \theta_u
+    \end{gather*}
+    с вероятностью 1, где $\widehat \theta_N$ определено формулой \eqref{GLSE}.
+
+    Если дополнительно выполняются предположения 4--6, то последовательность случайных векторов 
+    $$\sqrt N (\widehat \theta_N - \theta_u) \Rightarrow \mathcal{N}(\mathrm{0}, \Sigma),$$
+     ковариационная матрица $\Sigma = \sigma^2 M^{-1}(\xi, \theta_u)$.
+\end{mytheorem}
+\end{frame}
+\begin{frame}
+\bigskip
+Доказательство теоремы можно найти в работе
+
+\bigskip
+
+Jennrich, R. J. (1969). Asymptotic properties of non-linear least squares
+estimators // Ann. Math. Stat., 40, 633–643.
+\pause
+\begin{enumerate}
+\bigskip
+
+    \item
+Нелинейные модели обычно возникают как решения систем уравнений, описывающих поведение некоторого реального процесса. 
+\bigskip
+\pause
+ \item
+Параметры нелинейных моделей имеют, как правило, четкую предметную интерпретацию и находятся из анализа результатов эксперимнта.
+\pause
+\bigskip
+ \item
+
+
+Рассмотрим два примера.
+
+ \end{enumerate}
+\end{frame}
+
+\end{document}
+\begin{frame}{Пример 1, экспоненциальная модель}
+Рассмотрим простейшее линейное дифференциальное уравнение с задачей Коши
+\begin{align*}
+\frac{d \eta(x)}{d x} = a \eta(x), \; \eta(0) = \eta_0.
+\end{align*}
+
+Такое уравнение при $a > 0$ может быть использовано для описания популяционной динамики во времени при наличии бесконечного количества ресурсов и отсутствии конкуренции.
+
+Его решение есть простейшая экспоненциальная модель
+\begin{align*}
+\eta(x) = \eta_0 e^{a x}.
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Пример 2, модель Моно}
+Теперь рассмотрим более сложное уравнение
+\begin{align*}
+\frac{d \eta(x)}{d x} = \mu(x) \eta(x), \; \mu(x) = \theta_1\frac{s(x)}{s(x)+\theta_2},
+\end{align*}
+где
+\begin{align*}
+s(x) - s_0 = \frac{\eta_0 - \eta(x)}{\theta_3}, \; \eta(0) = \eta_0, \; s(0) = s_0. 
+\end{align*}
+\end{frame}
+\begin{frame}
+Решением этого уравнения на интервале $x \in [0,T]$ является модель Моно, которая задается неявно следующими уравнениями:
+  \begin{align}
+	x = &\frac{1}{\theta_{1}} \left[ (1+b) \log{\frac{\eta(x)}{\eta_0}} - b \log{\frac{a - \eta(x)}{a - \eta_0}} \right];\\
+	 &a = s_0 \theta_3 +\eta_0,\; b = \frac{\theta_{2} \theta_{3}}{a}.
+  \end{align}
+\pause
+
+\bigskip
+
+Изучению этой модели посвящена работа
+
+\bigskip
+
+H. Dette, V. Melas, A. Pepelyshev, N. Strigul (2003). Efficient design of experiments in the Monod model. Journal of the Royal Statistical Society: Series B (Statistical Methodology, Volume 65, Issue 3
+
+\end{frame}
+
+\end{document}
