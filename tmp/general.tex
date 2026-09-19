@@ -1,0 +1,244 @@
+
+\documentclass[12pt,a4paper]{article}
+
+% Поддержка русского языка
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+% Математика
+\usepackage{amsmath,amssymb,amsthm}
+
+% Настройка страницы
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+\begin{document}
+	
+	\tableofcontents
+	
+	\newpage
+	\section{Lagrange polynomials}
+	
+	\subsection{Interpolation}
+	Пусть $(x_k, y_k)_{k=0}^{n}$ точки из $\mathbb{R}^2$ \\
+	Задача: найти $p \in \mathbb{P}_n$ т.ч. $p(x_k)=y_k, k=1 \ldots n+1$,\\
+	где $\mathbb{P}_n$ -- многочлены степени не выше $n$\\
+	
+	\noindent Введём "базисные" многочлены:\\
+	\[
+	L_i(x) := \underset{i \neq j}{\prod_{j=0}^{n}} \frac{x - x_j}{x_i - x_j}, \ i \in 0 \ldots n
+	\]
+	
+	\noindent Заметим, что:
+	\[
+	L_i(x_k) = 
+	\begin{cases}
+	1, \ i=k \\ 
+	0, \ i \neq k\\
+	\end{cases}i,k \in 0 \ldots n
+	\]
+	
+	\noindent Введём интерполяционный многочлен:
+	\[
+	L(x) := \sum_{k=0}^{n} y_k L_k(x)
+	\]
+	
+	
+	\noindent Очевидно, это то что надо
+	\[
+	L(x_k) = y_k, \ k \in 0 \ldots n
+	\]
+	
+	\noindent Таким образом, мы нашли базис $\mathbb{P}_n$ т.к. $\forall q \in \mathbb{P}_n, \ \forall(x_0 \ldots x_n)$
+	\[
+	q(x_k) = \sum_{k=0}^{n} q(x_k) L_k(x_k), \ k \in 0 \ldots n
+	\]
+	
+	\noindent но разность левой и правой части это многочлен степени не выше $n$, а мы уже нашли $n+1$ корень. Значит они тождественно равны:
+	\[
+	q(x) = \sum_{k=0}^{n} q(x_k) L_k(x), \ \forall x \in \mathbb{R}
+	\]
+	
+	\newpage
+	\subsection{Remainder}
+	Пусть $p \in \mathbb{P}_n$\\
+	Пусть $(x_k, y_k)_{k=1}^{n}$ точки из $\mathbb{R}^2$ \\
+	Можно построить
+	\[
+	L(x) = \sum_{k=1}^{n} p(x_k) L_k(x)
+	\]
+	
+	\noindent Рассмотрим остаток
+	\[
+	R(x) = p(x) - L(x)
+	\]
+	
+	\noindent Это многочлен степени не выше $n$ и мы знаем что $x_k, k \in 1 \ldots n$ это его корни. Также из того что $L_k$ строились по n узлам мы имеем $deg(L) \leq n-1$, 
+	то есть старший коэффициент $a_n(R)$ многочлена $R$ совпадает со старшим коэфом $a_n(p)$ многочлена $p$.
+	Итоговый вид остатка:
+	\[
+	R(x) = a_n(p) \prod_{k=1}^{n} (x-x_k) \\
+	\]
+	
+	\noindent Представление для $p$:
+	\begin{equation}
+	p(x) = 
+	L(x) + R(x) = 
+    \sum_{k=1}^{n} p(x_k) L_k(x) + 
+    a_n(p) \prod_{k=1}^{n} (x-x_k)
+    \label{eq:lagr_expansion}
+	\end{equation}
+	
+	\newpage
+	\section{Ищем вес}
+	Пусть $f(x) = (1, x, \ldots, x^m)^\mathrm{T}$, $c=f'(x)$\\
+	Та самая система для плана с $n$ узлами имеет вид:
+	\[
+	c = h M(\xi) p = h \sum_{k=1}^{n} \omega_k <p,f(x_k)> f(x_k)
+	\]	
+	
+	\noindent или, c учётом $h = (\lambda ^*)^{-1}$ и чередования знаков т.е. $<p,f(x_k)> = (-1)^{k+1}$
+	\[
+	\lambda ^*
+	\begin{pmatrix}
+	0 \\
+	1 \\
+	\vdots \\
+	m x^{m-1}
+	\end{pmatrix} = 
+	\sum_{k=1}^{n} a_k 
+	\begin{pmatrix}
+		1 \\
+		x_k \\
+		\vdots \\
+		x_k^{m}
+	\end{pmatrix}, \quad a_k = \omega_k <p,f(x_k)>
+	\]
+	
+	\noindent Введём линейные операторы $A_1, A_2, A: \mathbb{P}_m \to \mathbb{R}$:
+	\[
+	A_1(p) := \lambda^* p'(x)
+	\]
+	\[
+	A_2(p) := \sum_{k=1}^{n} a_k p(x_k)
+	\]
+	\[
+	A(p) := A_1(p) - A_2(p)
+	\]
+	
+	\noindent Нетрудно видеть, что наша система эквивалентна вот такому:
+	\[
+	A(p) = 0, \quad \forall p \in {1, x, \ldots, x^m}
+	\]
+	
+	\noindent Т.к $A$ линейно, то это в свою очередь эквивалентно
+	\begin{equation}
+	A(p) = 0, \quad \forall p \in \mathbb{P}_m
+	\label{eq:cond1}
+	\end{equation}
+	
+	\noindent \textbf{Всюду далее считаем} $\mathbf{n = m}$.\\ Теперь рассмотрим 
+	\[
+	p_0(x) = \prod_{k=1}^{m} (x-x_k)
+	\]
+	
+	\noindent Для него
+	\[A(p_0) = 0\]
+	
+	\noindent И, также 
+	\[A_2(p_0) = 0\]
+	
+	\noindent Отсюда 
+	\[A_1(p_0) = \lambda^* p_0'(x) =  0\]
+	
+	\noindent При фиксированном $x$ получаем условие на $x_k, k \in 1 \ldots m$ (лямбда не ноль)
+	\[
+	p_0'(x) = \frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = \ 0
+	\]
+	
+	\noindent Вспоминаем, что \eqref{eq:lagr_expansion}  $\forall p \in \mathbb{P}_m$ даёт нам
+	\[
+	p(t) = 
+	\sum_{k=1}^{m} p(x_k) L_k(t) + 
+	a_m(p) \prod_{k=1}^{m} (t-x_k) = 
+	\sum_{k=1}^{m} p(x_k) L_k(t) + 
+	a_m(p) p_0(t)
+	\]
+	
+	\noindent Дифференцируя это равенство по $t$ получаем 
+	\[
+	p'(t) = 
+	\sum_{k=1}^{m} p(x_k) L_k'(t) + 
+	a_m(p) p_0'(t)
+	\]
+	
+	\noindent Подставляя $t=x$ убиваем остаток
+	\[
+	p'(x) = 
+	\sum_{k=1}^{m} p(x_k) L_k'(x)
+	\]
+	
+	\noindent Получили, что $\forall p \in \mathbb{P}_m$
+	\begin{equation}
+	\lambda^* p'(x) = 
+	\sum_{k=1}^{m} p(x_k) ( \lambda^* L_k'(x) ) 
+	\label{eq:re1}
+	\end{equation}
+	
+	\noindent Но из условия \eqref{eq:cond1} 
+	\[
+	A(p) = 0, \quad \forall p \in \mathbb{P}_m
+	\]
+	
+	\noindent То есть $\forall p \in \mathbb{P}_m$
+	\begin{equation}
+	\lambda^* p'(x) = 
+	\sum_{k=1}^{m} p(x_k) ( a_k ) 
+	\label{eq:re2}
+	\end{equation}
+	
+	\noindent Из \eqref{eq:re1} и \eqref{eq:re2} получаем $\forall p \in \mathbb{P}_m$
+	\[
+	\sum_{k=1}^{m} p(x_k) ( a_k ) = \sum_{k=1}^{m} p(x_k) ( \lambda^* L_k'(x) ) 
+	\] 
+	
+	\noindent Выбирая в качестве $p$ штуки которые равны $1$ и $0$ где надо, делаем вывод
+	\[
+	a_k = \lambda^* L_k'(x), \ \forall k \in 1 \ldots m 
+	\]
+	\[
+	\omega_k (-1)^{k+1} = \lambda^* L_k'(x), \ \forall k \in 1 \ldots m 
+	\]
+	\[
+	\omega_k  = (-1)^{k+1} \lambda^* L_k'(x), \ \forall k \in 1 \ldots m 
+	\]
+	
+	
+	\noindent Юзая условие на веса $\sum_{k=1}^{m} \omega_k = 1$ ищем лямбду:
+	\[
+	1 = \sum_{k=1}^{m} \omega_k = \sum_{k=1}^{m} (-1)^{k+1} \lambda^* L_k'(x) = \lambda^* \sum_{k=1}^{m} (-1)^{k+1}  L_k'(x)
+	\]
+	
+	\noindent получаем
+	\[
+	\lambda^* = \left( \sum_{k=1}^{m} (-1)^{k+1}  L_k'(x) \right) ^ {-1}
+	\]
+	
+	\noindent финальное выражение для весов
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m} (-1)^{k+1}  L_k'(x)
+	}, \ \forall k \in 1 \ldots m 
+	\]
+	
+	\[
+	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
+	\]
+	
+	
+\end{document}
