@@ -235,6 +235,24 @@
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m+1}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m+1
 	\]
 	
+	\subsection{Ограничение на $x$ от весов}
+	
+	Мы требуем $\forall k \in 1 \ldots m+1 \ \omega_k > 0 $
+	
+	\noindent То есть нужно решить систему неравенств относительно $x$:
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m+1} (-1)^{k+1}  L_k'(x)
+	} > 0 , \ \forall k \in 1 \ldots m+1 
+	\]
+	
+	
+	
 	\subsection{Ищем узлы в чебышёвских планах}
 	
 	\noindent А узлы это просто точки альтернанса полинома Чебышёва 1-го рода 
@@ -354,7 +372,23 @@
 	\[
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
 	\]
-		
+	
+	\subsection{Ограничение на $x$ от весов}
+	
+	Мы требуем $\forall k \in 1 \ldots m \ \omega_k > 0 $
+	
+	\noindent То есть нужно решить систему неравенств относительно $x$:
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m} (-1)^{k+1}  L_k'(x)
+	} > 0 , \ \forall k \in 1 \ldots m 
+	\]
+	
 	\newpage
 	\subsection{А теперь ищем узлы}
 	
@@ -445,6 +479,18 @@
 	\noindent Где
 	\[
 	U_{m-1}(s) = \frac{\sin(m \arccos(s))}{\sin(\arccos(s))}
+	\]
+	
+	\subsection{Ограничение на $x$ от узлов}
+	
+	\noindent Вспоминаем геометрию узлов:
+	\[
+	-1 = x_1 < x_2 < \ldots < x_m < 1 < z
+	\]
+	
+	\noindent Отсюда, с учетом растяжения вправо ограничение на $x$:
+	\[
+	x_m = x_m(x) \in (t_{m-1}, \ 1)
 	\]
 	
 	\newpage
@@ -538,8 +584,61 @@
 	\]
 	
 	
+	\subsection{Ограничение на $x$ от узлов}
+	
+	\noindent Вспоминаем геометрию узлов:
+	\[
+	z < -1 < x_1 < \ldots < x_{m-1} < x_m = 1
+	\]
+	
+	\noindent Отсюда, с учетом растяжения влево ограничение на $x$:
+	\[
+	x_1 = x_1(x) \in (-1, \ t_1)
+	\]
 	
 	
+	\newpage
+	\section{Два узла на границе}
 	
+	\subsection{Веса}
+	
+	\noindent Они получаются такими же как и в получебышёвском случае:
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m} (-1)^{k+1}  L_k'(x)
+	}, \ \forall k \in 1 \ldots m 
+	\]
+	
+	\[
+	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
+	\]
+	
+	\subsection{Ограничение на $x$ от весов}
+	
+	Мы требуем $\forall k \in 1 \ldots m \ \omega_k > 0 $
+	
+	\noindent То есть нужно решить систему неравенств относительно $x$:
+	\[
+	\omega_k  = 
+	\frac
+	{
+		(-1)^{k+1} L_k'(x)
+	}
+	{
+		\sum_{k=1}^{m} (-1)^{k+1}  L_k'(x)
+	} > 0 , \ \forall k \in 1 \ldots m 
+	\]
+	
+	\subsection{Узлы}
+	
+	Теперь узлы должны быть расположены следующим образом:
+	\[
+	-1 = x_1 < x_2 < \ldots < x_{m-1} < x_m = 1
+	\]
 	
 \end{document}
