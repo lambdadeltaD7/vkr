@@ -253,7 +253,7 @@
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
 	\]
 		
-%	\newpage
+	\newpage
 	\subsection{А теперь ищем узлы}
 	
 	\subsection*{Если растяжка вправо}
@@ -321,7 +321,8 @@
 	
 	\noindent Когда мы найдем значения $s$ из
 	\[
-	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k-1} \right) \right] = 0
+	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k-1} \right) \right] = 
+	\frac{d}{ds} \left[\prod_{k=0}^{m-1} \left( s - t_{k} \right) \right] = 0
 	\]
 	
 	\noindent Мы воспользуемся тем, что
@@ -332,6 +333,19 @@
 	\noindent И отсюда найдём $b$, затем $a$ \\
 	после этого можно явно выписать выражения для $x_k \  k \in 1 \ldots m$
 	
+	\noindent Если обратиться к полиномам Чебышёва 2-го рода то можно переписать уравнение на $s$ в виде:
+	\[
+	\frac{d}{ds} \left[ (s-t_0) \prod_{k=1}^{m-1} \left( s - t_{k} \right) \right] = 
+	\frac{d}{ds} \left[ (s+1) \prod_{k=1}^{m-1} \left( s - t_{k} \right) \right] = 
+	C \frac{d}{ds} \left[ (s+1) U_{m-1}(s) \right] = 0
+	\]
+	
+	\noindent Где
+	\[
+	U_{m-1}(s) = \frac{\sin(m \arccos(s))}{\sin(\arccos(s))}
+	\]
+	
+	\newpage
 	\subsection*{Если растяжка влево}
 	
 	\noindent В таком сетапе считаем
@@ -408,6 +422,18 @@
 	\noindent И отсюда найдём $b$, затем $a$ \\
 	после этого можно явно выписать выражения для $x_k \  k \in 1 \ldots m$
 	
+	
+	\noindent Если обратиться к полиномам Чебышёва 2-го рода то можно переписать уравнение на $s$ в виде:
+	\[
+	\frac{d}{ds} \left[ (s-t_m) \prod_{k=1}^{m-1} \left( s - t_{k} \right) \right] = 
+	\frac{d}{ds} \left[ (s-1) \prod_{k=1}^{m-1} \left( s - t_{k} \right) \right] = 
+	C \frac{d}{ds} \left[ (s-1) U_{m-1}(s) \right] = 0
+	\]
+	
+	\noindent Где
+	\[
+	U_{m-1}(s) = \frac{\sin(m \arccos(s))}{\sin(\arccos(s))}
+	\]
 	
 	
 	
