@@ -265,14 +265,14 @@
 	
 	\noindent где $x_k = a t_{k-1} + b, k \in 1, \ldots m$ \\
 	и $z=a t_m + b$ (её игнорим)\\
-	для неких $a, b \in \mathbb{R}$ (мы их не знаем, но они явно и не нужны, главное что какое-то линейное преобразование) \\
+	для неких $a, b \in \mathbb{R}$, где $a > 0$ (мы их не знаем, но они явно и не нужны, главное что какое-то линейное преобразование) \\
 	а $t_k, \  k \in 0, \ldots, m$ есть точки альтернанса полинома Чебышёва 1-го рода 
 	\[
 	T_{m}(x) = \cos( m \arccos(x))
 	\]
 	\noindent Они имеют вид 
 	\[
-	t_k = \cos \left( \frac{k \pi}{m} \right), \ k \in 0 \ldots m
+	t_k = \cos \left( \frac{ (m-k) \pi}{m} \right), \ k \in 0 \ldots m
 	\]
 	
 	\noindent Уравнения описывающие растяжение (отношение длин интервалов между точками альтернанса сохраняется)
@@ -289,35 +289,48 @@
 	\textbf{ИЛИ} найти $a$ и $b$.\\
 	
 	
-	\noindent Заметим(по приколу), что узлы удовлетворяют
+	\noindent Заметим, что узлы удовлетворяют
 	\[
-	p_0'(x) = \frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = \ 0
+	p_0'(x) = 
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = 
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - (at_{k-1} + b) ) \right]_{t=x} = 
+	 0
 	\]
 	
-	\noindent Вспоминаем про первое (в смысле степени) уравнение системы. В операторном виде оно выглядит так:
+	\noindent Введём новую переменную $s = \frac{t-b}{a}$
 	\[
-	A(p) = 0
-	\]
-	где $A = A_1 - A_2, \ \  A_1(p) = \lambda^* p'(x), \ \ A_2(p) = \sum_{k=1}^{m} a_k p(x_k), \ \ p(t)=t$
-	
-	\noindent То есть 
-	\[
-	 	\lambda^* = \sum_{k=1}^{m} a_k x_k
-	\]
-	
-	\noindent Теперь вспомним про второе (в смысле степени) уравнение системы.\\ Всё то же самое, но при $p(t)=t^2$ даёт нам
-	\[
-	2 \lambda^* x = \sum_{k=1}^{m} a_k x_k^2
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - (at_{k-1} + b) ) \right] =
+	\frac{1}{a}\frac{d}{dt} \left[\prod_{k=1}^{m} \left( \frac{t-b}{a} - t_{k-1} \right) \right] 
 	\]
 	\[
-	\lambda^* = \frac{1}{2x}\sum_{k=1}^{m} a_k x_k^2
+	\frac{d}{dt} \left[\prod_{k=1}^{m} \left( \frac{t-b}{a} - t_{k-1} \right) \right] = 0 
+	\quad \Longleftrightarrow \quad
+	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k-1} \right) \right] = 0
 	\]
 	
-	\noindent Комбинируя получаем квадратное относительно $x_2$\\
-	\textbf{НО ВЕСА ТО НЕЗИВЕСТНЫ И ВЫРАЖАЮТСЯ ЧЕРЕЗ ИКСЫ ЛОЛ))) }
+	\noindent В $x_k = a t_{k-1} + b, k \in 1, \ldots m$ подставляем $k=1$ и получаем
 	\[
-	\frac{1}{2x}\sum_{k=1}^{m} a_k x_k^2 = \sum_{k=1}^{m} a_k x_k
+	x_1 = a t_0 + b
 	\]
+	\[
+	-1 = a (-1) + b
+	\]
+	\[
+	a = b + 1
+	\]
+	
+	\noindent Когда мы найдем значения $s$ из
+	\[
+	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k-1} \right) \right] = 0
+	\]
+	
+	\noindent Мы воспользуемся тем, что
+	\[
+	s |_{t=x} = \frac{x-b}{a} = \frac{x-b}{b+1}
+	\]
+	
+	\noindent И отсюда найдём $b$, затем $a$ \\
+	после этого можно явно выписать выражения для $x_k \  k \in 1 \ldots m$
 	
 	\subsection*{Если растяжка влево}
 	
@@ -327,7 +340,7 @@
 	\]
 	
 	\noindent где $x_k = a t_{k} + b, k \in 1, \ldots m$ \\
-	и $z=a t_0 + b$ (её игнорим)\\
+	и $z=a t_0 + b$, $a > 0$ (её игнорим)\\
 	для неких $a, b \in \mathbb{R}$ (мы их не знаем, но они явно и не нужны, главное что какое-то линейное преобразование) \\
 	а $t_k, \  k \in 0, \ldots, m$ есть точки альтернанса полинома Чебышёва 1-го рода 
 	\[
@@ -335,7 +348,7 @@
 	\]
 	\noindent Они имеют вид 
 	\[
-	t_k = \cos \left( \frac{k \pi}{m} \right), \ k \in 0 \ldots m
+	t_k = \cos \left( \frac{ (m-k) \pi}{m} \right), \ k \in 0 \ldots m
 	\]
 	
 	\noindent Уравнения описывающие растяжение (отношение длин интервалов между точками альтернанса сохраняется)
@@ -349,24 +362,54 @@
 	\noindent уже известно, что $x_m = -1$, значит из первого уравнения $x_{m-2}$ линейно выражается через $x_{m-1}$.\\
 	из второго $x_{m-3}$ линейно выражается через $x_{m-2}$ и $x_{m-1}$ то есть линейно через $x_{m-1}$\\
 	в конце концов все $x_k, \ k \in 1 \ldots m $ линейно выражаются через $x_{m-1}$\\
-	Для окончательного нахождения плана достаточно найти $x_{m-1}$ \textbf{ИЛИ} найти $a$ и $b$.\\.\\
-	
+	Для окончательного нахождения плана достаточно найти $x_{m-1}$ \textbf{ИЛИ} найти $a$ и $b$.\\
 	
 	
 	\noindent Для поиска узлов используем
 	\[
-	p_0'(x) = \frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = \ 0
+	p_0'(x) = 
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = 
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - (at_{k} + b) ) \right]_{t=x} = 
+	0
 	\]
 	
+	\noindent Введём новую переменную $s = \frac{t-b}{a}$
+	\[
+	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - (at_{k} + b) ) \right] =
+	\frac{1}{a}\frac{d}{dt} \left[\prod_{k=1}^{m} \left( \frac{t-b}{a} - t_{k} \right) \right] 
+	\]
+	\[
+	\frac{d}{dt} \left[\prod_{k=1}^{m} \left( \frac{t-b}{a} - t_{k} \right) \right] = 0 
+	\quad \Longleftrightarrow \quad
+	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k} \right) \right] = 0
+	\]
 	
-	\noindent Очевидно, что
+	\noindent В $x_k = a t_{k} + b, k \in 1, \ldots m$ подставляем $k=m$ и получаем
 	\[
-	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right] =
-	\sum_{i=1}^{m} \underset{k \neq i}{\prod_{k=1}^{m}}(t - x_k)
+	x_m = a t_m + b
 	\]
 	\[
-	\sum_{i=1}^{m} \underset{k \neq i}{\prod_{k=1}^{m}} \left( x - (\alpha_k x_{m-1} + \beta_k) \right) = 0
+	1 = a (1) + b
 	\]
+	\[
+	a = 1 - b
+	\]
+	
+	\noindent Когда мы найдем значения $s$ из
+	\[
+	\frac{d}{ds} \left[\prod_{k=1}^{m} \left( s - t_{k} \right) \right] = 0
+	\]
+	
+	\noindent Мы воспользуемся тем, что
+	\[
+	s |_{t=x} = \frac{x-b}{a} = \frac{x-b}{1 - b}
+	\]
+	
+	\noindent И отсюда найдём $b$, затем $a$ \\
+	после этого можно явно выписать выражения для $x_k \  k \in 1 \ldots m$
+	
+	
+	
 	
 	\newpage
 	\section{Ищем веса в чебышёвских планах}
