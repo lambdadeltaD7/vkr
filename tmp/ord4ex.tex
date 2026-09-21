@@ -17,93 +17,19 @@
 	\tableofcontents
 	
 	\newpage
-	\section{Lagrange polynomials}
-	
-	\subsection{Interpolation}
-	Пусть $(x_k, y_k)_{k=0}^{n}$ точки из $\mathbb{R}^2$ \\
-	Задача: найти $p \in \mathbb{P}_n$ т.ч. $p(x_k)=y_k, k=0 \ldots n$,\\
-	где $\mathbb{P}_n$ -- многочлены степени не выше $n$\\
-	
-	\noindent Введём "базисные" многочлены:\\
-	\[
-	L_i(x) := \underset{i \neq j}{\prod_{j=0}^{n}} \frac{x - x_j}{x_i - x_j}, \ i \in 0 \ldots n
-	\]
-	
-	\noindent Заметим, что:
-	\[
-	L_i(x_k) = 
-	\begin{cases}
-	1, \ i=k \\ 
-	0, \ i \neq k\\
-	\end{cases}i,k \in 0 \ldots n
-	\]
-	
-	\noindent Введём интерполяционный многочлен:
-	\[
-	L(x) := \sum_{k=0}^{n} y_k L_k(x)
-	\]
-	
-	
-	\noindent Очевидно, это то что надо
-	\[
-	L(x_k) = y_k, \ k \in 0 \ldots n
-	\]
-	
-	\noindent Таким образом, мы нашли базис $\mathbb{P}_n$ т.к. $\forall q \in \mathbb{P}_n, \ \forall(x_0 \ldots x_n)$
-	\[
-	q(x_k) = \sum_{k=0}^{n} q(x_k) L_k(x_k), \ k \in 0 \ldots n
-	\]
-	
-	\noindent но разность левой и правой части это многочлен степени не выше $n$, а мы уже нашли $n+1$ корень. Значит они тождественно равны:
-	\[
-	q(x) = \sum_{k=0}^{n} q(x_k) L_k(x), \ \forall x \in \mathbb{R}
-	\]
-	
-	\newpage
-	\subsection{Remainder}
-	Пусть $p \in \mathbb{P}_n$\\
-	Пусть $(x_k, y_k)_{k=1}^{n}$ точки из $\mathbb{R}^2$ \\
-	Можно построить
-	\[
-	L(x) = \sum_{k=1}^{n} p(x_k) L_k(x)
-	\]
-	
-	\noindent Рассмотрим остаток
-	\[
-	R(x) = p(x) - L(x)
-	\]
-	
-	\noindent Это многочлен степени не выше $n$ и мы знаем что $x_k, k \in 1 \ldots n$ это его корни. Также из того что $L_k$ строились по n узлам мы имеем $deg(L) \leq n-1$, 
-	то есть старший коэффициент $a_n(R)$ многочлена $R$ совпадает со старшим коэфом $a_n(p)$ многочлена $p$.
-	Итоговый вид остатка:
-	\[
-	R(x) = a_n(p) \prod_{k=1}^{n} (x-x_k) \\
-	\]
-	
-	\noindent Представление для $p$:
-	\begin{equation}
-	p(x) = 
-	L(x) + R(x) = 
-    \sum_{k=1}^{n} p(x_k) L_k(x) + 
-    a_n(p) \prod_{k=1}^{n} (x-x_k)
-    \label{eq:lagr_expansion}
-	\end{equation}
-	
-	\newpage
-	
 	\section{Обозначения}
 	Фиксируем $x \in \mathbb{R}$\\
 	Пусть $f(x) = (1, x, \ldots, x^m)^\mathrm{T}$, $c=f'(x)$\\
 	
 	\noindent Рассмотрим план
 	\[
-		\xi = 
-		\left(
-		\begin{matrix}
+	\xi = 
+	\left(
+	\begin{matrix}
 		x_1 \ x_2 \ldots x_n \\
 		\omega_1 \ \omega_2 \ldots \omega_n	
-		\end{matrix}
-		\right)
+	\end{matrix}
+	\right)
 	\]
 	
 	\noindent Та самая система для плана с $n$ узлами имеет вид:
@@ -115,10 +41,10 @@
 	\[
 	\lambda ^*
 	\begin{pmatrix}
-	0 \\
-	1 \\
-	\vdots \\
-	m x^{m-1}
+		0 \\
+		1 \\
+		\vdots \\
+		m x^{m-1}
 	\end{pmatrix} = 
 	\sum_{k=1}^{n} a_k 
 	\begin{pmatrix}
@@ -147,8 +73,8 @@
 	
 	\noindent Т.к $A$ линейно, то это в свою очередь эквивалентно
 	\begin{equation}
-	\mathbb{P}_m \subset \ker A
-	\label{eq:cond1}
+		\mathbb{P}_m \subset \ker A
+		\label{eq:cond1}
 	\end{equation}
 	
 	
@@ -257,7 +183,218 @@
 	x_{k+1} = \cos \left( \frac{(m-k) \pi}{m} \right), \ k \in 0 \ldots m
 	\]
 	
+	\noindent Для $m=4$ многочлен Чебышёва выглядит вот так:
+	\[
+	T_{4}(x) = \cos( 4 \arccos(x)) = 8x^4 - 8x^2 + 1
+	\]
 	
+	\noindent А его точки альтернанса:
+	\begin{align*}
+		x_1 &= \cos \left( \frac{4\pi}{4} \right) = -1\\
+		x_2 &= \cos \left( \frac{3\pi}{4} \right) = -\frac{\sqrt{2}}{2}\\
+		x_3 &= \cos \left( \frac{2\pi}{4} \right) = 0\\
+		x_4 &= \cos \left( \frac{1\pi}{4} \right) = \frac{\sqrt{2}}{2}\\
+		x_5 &= \cos \left( \frac{0\pi}{4} \right) = 1\\
+	\end{align*}
+		
+		
+	\noindent Теперь найдем веса, для этого сначала выпишем базисные многочлены и их производные
+	
+	\begin{align*}
+		L_1(x)
+		&=
+		\frac{
+			\left(x+\frac{\sqrt{2}}{2}\right)
+			x
+			\left(x-\frac{\sqrt{2}}{2}\right)
+			(x-1)
+		}{
+			\left(-1+\frac{\sqrt{2}}{2}\right)
+			(-1)
+			\left(-1-\frac{\sqrt{2}}{2}\right)
+			(-2)
+		}
+		\\
+		&=
+		\left(x+\frac{\sqrt{2}}{2}\right)
+		x
+		\left(x-\frac{\sqrt{2}}{2}\right)
+		(x-1)
+		\\
+		&=
+		x^4-x^3-\frac{1}{2}x^2+\frac{1}{2}x
+		\\[4mm]
+		L'_1(x) &= 4x^3 -3x^2-x+\frac{1}{2}
+	\end{align*}
+	
+	
+	\begin{align*}
+		L_2(x)
+		&=
+		\frac{
+			(x+1)
+			x
+			\left(x-\frac{\sqrt{2}}{2}\right)
+			(x-1)
+		}{
+			\left(-\frac{\sqrt{2}}{2}+1\right)
+			\left(-\frac{\sqrt{2}}{2}\right)
+			(-\sqrt{2})
+			\left(-\frac{\sqrt{2}}{2}-1\right)
+		}
+		\\
+		&=
+		-2(x+1)
+		x
+		\left(x-\frac{\sqrt{2}}{2}\right)
+		(x-1)
+		\\
+		&=
+		-2x^4+\sqrt{2}x^3+2x^2-\sqrt{2}x \\[4mm]
+		L'_2(x) &= -8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2} 	
+	\end{align*}
+		
+	\begin{align*}
+		L_3(x)
+		&=
+		\frac{
+			(x+1)
+			\left(x+\frac{\sqrt{2}}{2}\right)
+			\left(x-\frac{\sqrt{2}}{2}\right)
+			(x-1)
+		}{
+			(1)
+			\left(\frac{\sqrt{2}}{2}\right)
+			\left(-\frac{\sqrt{2}}{2}\right)
+			(-1)
+		}
+		\\
+		&=
+		2(x+1)
+		\left(x+\frac{\sqrt{2}}{2}\right)
+		\left(x-\frac{\sqrt{2}}{2}\right)
+		(x-1)
+		\\
+		&=
+		2x^4-3x^2+1,
+		\\[4mm]
+		L'_3(x) &= 8x^3 - 6x
+	\end{align*}
+	
+	\begin{align*}
+		L_4(x)
+		&=
+		\frac{
+			(x+1)
+			\left(x+\frac{\sqrt{2}}{2}\right)
+			x
+			(x-1)
+		}{
+			\left(1+\frac{\sqrt{2}}{2}\right)
+			\sqrt{2}
+			\left(\frac{\sqrt{2}}{2}\right)
+			\left(-1+\frac{\sqrt{2}}{2}\right)
+		}
+		\\
+		&=
+		-2(x+1)
+		\left(x+\frac{\sqrt{2}}{2}\right)
+		x
+		(x-1)
+		\\
+		&=
+		-2x^4-\sqrt{2}x^3+2x^2+\sqrt{2}x,
+		\\[4mm]
+		L'_4(x) &= -8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2}
+	\end{align*}
+		
+	\begin{align*}
+		L_5(x)
+		&=
+		\frac{
+			(x+1)
+			\left(x+\frac{\sqrt{2}}{2}\right)
+			x
+			\left(x-\frac{\sqrt{2}}{2}\right)
+		}{
+			(2)
+			\left(1+\frac{\sqrt{2}}{2}\right)
+			(1)
+			\left(1-\frac{\sqrt{2}}{2}\right)
+		}
+		\\
+		&=
+		(x+1)
+		\left(x+\frac{\sqrt{2}}{2}\right)
+		x
+		\left(x-\frac{\sqrt{2}}{2}\right)
+		\\
+		&=
+		x^4+x^3-\frac{1}{2}x^2-\frac{1}{2}x\\[4mm]
+		L'_5(x) &= 4x^3 + 3x^2 -x - \frac{1}{2}
+	\end{align*}
+	
+	
+	
+	\begin{align*}
+		\sum_{k=1}^{5}(-1)^{k+1}L_k'(x)
+		&=
+		L_1'(x)-L_2'(x)+L_3'(x)-L_4'(x)+L_5'(x) = \\
+		&=
+		(4x^3 -3x^2-x+\frac{1}{2})\\
+		&
+		- (-8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2})\\
+		&
+		+ (8x^3 - 6x)\\
+		&
+		-(-8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2})\\
+		&
+		+(4x^3 + 3x^2 -x - \frac{1}{2}) =\\
+		& =
+		32x^3-16x \\
+		& =
+		16x(2x^2-1)
+	\end{align*}
+	
+	\noindent Отсюда лямбда равна
+	\[
+	\lambda^* = 
+	\left( \sum_{k=1}^{m+1} (-1)^{k+1}  L_k'(x) \right) ^ {-1} = 
+	\frac{1}{16x(2x^2-1)}
+	\]
+	
+	\noindent Теперь находим веса из формулы
+	\[\omega_k  = (-1)^{k+1} \lambda^* L_k'(x), \ \forall k \in 1 \ldots m+1 \]
+	\begin{align*}
+		\omega_1 &= 
+		(-1)^{1+1} \lambda^* L_1'(x) = 
+		\frac{(4x^3 -3x^2-x+\frac{1}{2})}{16x(2x^2-1)}\\[3mm]
+		\omega_2 &= 
+		(-1)^{2+1} \lambda^* L_2'(x) = 
+		\frac{- (-8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2})}{16x(2x^2-1)}\\[3mm]
+		\omega_3 &= 
+		(-1)^{3+1} \lambda^* L_3'(x) = 
+		\frac{(8x^3 - 6x)}{16x(2x^2-1)}\\[3mm]
+		\omega_4 &= 
+		(-1)^{4+1} \lambda^* L_4'(x) = 
+		\frac{-(-8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2})}{16x(2x^2-1)}\\[3mm]
+		\omega_5 &= 
+		(-1)^{5+1} \lambda^* L_5'(x) = 
+		\frac{(4x^3 + 3x^2 -x - \frac{1}{2})}{16x(2x^2-1)}\\
+	\end{align*}
+	
+	\noindent В конце концов получаем что план имеет вид
+	
+	\[
+	\begin{pmatrix}
+	-1 & -\frac{\sqrt2}{2} & 0 & \frac{\sqrt2}{2} & 1 \\
+	\frac{(4x^3 -3x^2-x+\frac{1}{2})}{16x(2x^2-1)} &
+	\frac{- (-8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2})}{16x(2x^2-1)} &
+	\frac{(8x^3 - 6x)}{16x(2x^2-1)} &
+	\frac{-(-8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2})}{16x(2x^2-1)} &
+	\frac{(4x^3 + 3x^2 -x - \frac{1}{2})}{16x(2x^2-1)}
+	\end{pmatrix}
+	\]
 	
 	\newpage
 	\section{Получебышёвские планы}
@@ -306,9 +443,9 @@
 	
 	\noindent Получили, что $\forall p \in \mathbb{P}_m$
 	\begin{equation}
-	\lambda^* p'(x) = 
-	\sum_{k=1}^{m} p(x_k) ( \lambda^* L_k'(x) ) 
-	\label{eq:re1}
+		\lambda^* p'(x) = 
+		\sum_{k=1}^{m} p(x_k) ( \lambda^* L_k'(x) ) 
+		\label{eq:re1}
 	\end{equation}
 	
 	\noindent Но из условия \eqref{eq:cond1} 
@@ -318,9 +455,9 @@
 	
 	\noindent То есть $\forall p \in \mathbb{P}_m$
 	\begin{equation}
-	\lambda^* p'(x) = 
-	\sum_{k=1}^{m} p(x_k) ( a_k ) 
-	\label{eq:re2}
+		\lambda^* p'(x) = 
+		\sum_{k=1}^{m} p(x_k) ( a_k ) 
+		\label{eq:re2}
 	\end{equation}
 	
 	\noindent Из \eqref{eq:re1} и \eqref{eq:re2} получаем $\forall p \in \mathbb{P}_m$
@@ -382,7 +519,7 @@
 	
 	\noindent В таком сетапе считаем
 	\[
-	    -1 = x_1 < x_2 < \ldots < x_m < 1 < z
+	-1 = x_1 < x_2 < \ldots < x_m < 1 < z
 	\]
 	
 	\noindent где $x_k = a t_{k-1} + b, k \in 1, \ldots m$ \\
@@ -416,7 +553,7 @@
 	p_0'(x) = 
 	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - x_k) \right]_{t=x} = 
 	\frac{d}{dt} \left[\prod_{k=1}^{m} (t - (at_{k-1} + b) ) \right]_{t=x} = 
-	 0
+	0
 	\]
 	
 	\noindent Введём новую переменную $s = \frac{t-b}{a}$
