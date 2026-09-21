@@ -39,13 +39,13 @@ def compute_omegas(x, m, *xs):
 
     # Знаменатель
     denominator = sum(
-        (-1) ** (k + 1) * derivatives[k]
+        (-1) ** (k ) * derivatives[k]
         for k in range(m)
     )
 
     # omega_k
     omegas = [
-        (-1) ** (k + 1) * derivatives[k] / denominator
+        (-1) ** (k ) * derivatives[k] / denominator
         for k in range(m)
     ]
 
