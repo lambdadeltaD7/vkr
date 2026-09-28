@@ -117,7 +117,11 @@ def solve_system(x, alpha, tol=1e-12):
     # ----------------------------------------
     # Формируем решения
     # ----------------------------------------
-
+    
+    if len(roots) == 0:
+        print("no roots for quadric")
+        return []
+    
     solutions = []
 
     for u in roots:
@@ -126,6 +130,8 @@ def solve_system(x, alpha, tol=1e-12):
 
         # Допустимость узлов
         if not (-1 < u < v < 1):
+            print("NO -1 < u < v < 1 ")
+            print(f"cuz !( -1 < {u} < {v} < 1 )")
             continue
 
         # Производные Лагранжа
@@ -135,15 +141,17 @@ def solve_system(x, alpha, tol=1e-12):
 
         # D
         D = L1 - L2 + L3 - L4
+        D2 = abs(L1) + abs(L2) + abs(L3) + abs(L4)
 
         if abs(D) < tol:
+            print(f"abs(D = L1 - L2 + L3 - L4) < {tol}")
             continue
 
         # Веса
-        omega1 = L1 / D
-        omega2 = -L2 / D
-        omega3 = L3 / D
-        omega4 = -L4 / D
+        omega1 = abs(L1) / D2
+        omega2 = abs(L2) / D2
+        omega3 = abs(L3) / D2
+        omega4 = abs(L4) / D2
 
         omega = np.array([
             omega1,
@@ -261,32 +269,50 @@ def residual(x, alpha, solution):
         "norm_2": np.linalg.norm(components),
     }
 
-x=float(input("x="))
-alpha=float(input("alpha="))
 
-solutions = solve_system(x, alpha)
+def summary(x,alpha):
+    solutions = solve_system(x, alpha)
+    
+    if len(solutions) == 0:
+        print("NO SOLS")
+        return
 
-for i, sol in enumerate(solutions, 1):
+    for i, sol in enumerate(solutions, 0):
 
-    print(f"\n=== Solution {i} ===")
+        print(f"\n=== Solution {i} ===")
 
-    print("x1, x2, x3, x4:")
-    print(sol["x_nodes"])
+        print("x1, x2, x3, x4:")
+        print(sol["x_nodes"])
 
-    print("\nomega:")
-    print(sol["weights"])
-    print(sum(sol["weights"]))
+        print("\nomega:")
+        print(sol["weights"])
+        print(sum(sol["weights"]))
 
-    print("\nlambda*:")
-    print(sol["lambda"])
+        print("\nlambda*:")
+        print(sol["lambda"])
 
-    r = residual(x, alpha, sol)
+        r = residual(x, alpha, sol)
 
-    print("\nResidual components:")
-    print(r["components"])
+        print("\nResidual components:")
+        print(r["components"])
 
-    print("\nmax |r|:")
-    print(r["max_abs"])
+        print("\nmax |r|:")
+        print(r["max_abs"])
 
-    print("\nL2 residual:")
-    print(r["norm_2"])
+        print("\nL2 residual:")
+        print(r["norm_2"])
+
+# x=float(input("x="))
+# alpha=float(input("alpha="))
+# summary(x,alpha)
+
+for x in np.linspace(-2,2,15):
+    for alpha in np.linspace(0.01, 1, 6):
+        print("="*30)
+        print(f"{x=}")
+        print(f"{alpha=}")
+        summary(x,alpha)
+        print()
+        print()
+
+

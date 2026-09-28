@@ -397,6 +397,22 @@
 	\]
 	
 	\newpage
+	\noindent Условие положительности весов можно записать как\\
+	\noindent (По факту в секции с растяжкой решены уравнения 1,5 и уравнения 2,4 имеют симметричные корни. а уравнения 3 и 6 ваще квадры), так что найти корни второго
+	\[
+	\begin{cases}
+		\lambda^* (4x^3 -3x^2-x+\frac{1}{2}) > 0 \\
+		- \lambda^* (-8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2}) > 0 \\
+		\lambda^* (8x^3 - 6x) > 0 \\
+		-\lambda^* (-8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2}) > 0 \\
+		\lambda^* (4x^3 + 3x^2 -x - \frac{1}{2}) > 0 \\
+		\lambda^* = \frac{1}{16x(2x^2-1)}
+	\end{cases}
+	\]
+	
+	
+	
+	\newpage
 	\section{Получебышёвские планы}
 	\subsection{Ищем веса в получебышёвских планах}
 	\noindent (\textbf{А теперь} $\mathbf{n = m}$)\\ 
@@ -854,6 +870,41 @@
 	x_m = x_m(x) \in (t_{m-1}, \ 1)
 	\]
 	
+	\noindent Хотим растяжение с положительным коэффициентом
+	\[
+	a =  \frac{x+1}{s+1} > 0
+	\]
+	
+	\noindent С учетом того что все корни $s > -1$ получаем условие
+	\[
+	x > -1
+	\]
+	
+	\noindent Остается условие
+	\begin{align*}
+	t_{m-1} &< x_m < 1 \\
+	t_{m-1} &< a t_{m-1} + b < 1 \\
+	t_{m-1} &< \frac{x+1}{s+1} t_{m-1} + \frac{x-s}{s+1} < 1 \\
+	t_{m-1}(s+1) &< (x + 1) t_{m-1} + x - s < s + 1 \\
+	s(1+t_{m-1}) &< x(1 + t_{m-1}) <  2s + 1 - t_{m-1} \\ 
+	s &< x <  \frac{2s + 1 - t_{m-1}}{(1 + t_{m-1})} 
+	\end{align*}
+	
+	\noindent Итого
+	\[
+	x \in \left( s, \quad \frac{2s + 1 - t_{m-1}}{(1 + t_{m-1})}   \right) = 
+	\begin{cases}
+		\left( s_1, \quad \frac{2s_1 + 1 - t_{m-1}}{(1 + t_{m-1})}   \right) \\
+		\left( s_2, \quad \frac{2s_2 + 1 - t_{m-1}}{(1 + t_{m-1})}   \right) \\
+		\left( s_0, \quad \frac{2s_0 + 1 - t_{m-1}}{(1 + t_{m-1})}   \right) \\
+	\end{cases} \approx 
+	\begin{cases}
+		\left(-0.8723, \quad -0.8503 \right) \\
+		\left(-0.3222, \quad -0.2059 \right) \\
+		\left(0.4446, \quad 0.6924 \right) \\
+	\end{cases}
+	\]
+	
 	\newpage
 	\subsection*{Если растяжка влево}
 	
@@ -1200,6 +1251,41 @@
 	\]
 	
 	
+	\noindent Хотим растяжение с положительным коэффициентом
+	\[
+	a =  \frac{1-x}{1-s} > 0
+	\]
+	
+	\noindent С учетом того что все корни $s < 1$ получаем условие
+	\[
+	x < 1
+	\]
+	
+	\noindent Остается условие
+	\begin{align*}
+		-1 &< x_1 < t_1 \\
+		-1 &< a t_1 + b < t_1 \\
+		-1 &< \frac{1-x}{1-s} t_1 + \frac{x-s}{1-s} < t_1 \\
+		s - 1 &< (1 - x) t_{1} + x - s < (1 - s)t_1 \\
+		2s - 1 - t_1 &< x(1 - t_{1}) < s(1-t_1) \\ 
+		\frac{2s - 1 - t_1}{(1 - t_{1})} &< x <  s
+	\end{align*}
+	
+	\noindent Итого
+	\[
+	x \in \left(\frac{2s - 1 - t_1}{(1 - t_{1})}, \quad s  \right) = 
+	\begin{cases}
+		\left(\frac{2s_2 - 1 - t_1}{(1 - t_{1})}, \quad s_2  \right) \\
+		\left(\frac{2s_1 - 1 - t_1}{(1 - t_{1})}, \quad s_1  \right) \\
+		\left(\frac{2s_0 - 1 - t_1}{(1 - t_{1})}, \quad s_0  \right) \\
+	\end{cases} \approx 
+	\begin{cases}
+		\left(-0.6924, \quad -0.4446  \right) \\
+		\left(0.2059, \quad 0.3222 \right) \\
+		\left(0.8503, \quad 0.8723 \right) \\
+	\end{cases}
+	\]
+	
 	\newpage
 	\section{Два узла на границе}
 	
@@ -1237,5 +1323,832 @@
 	\[
 	-1 = x_1 < x_2 < \ldots < x_{m-1} < x_m = 1
 	\]
+	
+	
+	\section{Решение системы}
+	
+	\subsection{Исходная система}
+	
+	Фиксируем $x\in\mathbb{R}$ и рассматриваем
+	
+	$$
+	f(x)=
+	\begin{pmatrix}
+		1\\
+		x\\
+		x^2\\
+		x^3\\
+		x^4
+	\end{pmatrix},
+	\qquad
+	c=f'(x)=
+	\begin{pmatrix}
+		0\\
+		1\\
+		2x\\
+		3x^2\\
+		4x^3
+	\end{pmatrix}.
+	$$
+	
+	Пусть
+	
+	$$
+	\xi=
+	\begin{pmatrix}
+		x_1&x_2&x_3&x_4\\
+		\omega_1&\omega_2&\omega_3&\omega_4
+	\end{pmatrix}.
+	$$
+	
+	При $m=n=4$ имеем
+	
+	$$
+	\lambda^*
+	\begin{pmatrix}
+		0\\
+		1\\
+		2x\\
+		3x^2\\
+		4x^3
+	\end{pmatrix}
+	=
+	\sum_{k=1}^4
+	(-1)^{k+1}\omega_k
+	\begin{pmatrix}
+		1\\
+		x_k\\
+		x_k^2\\
+		x_k^3\\
+		x_k^4
+	\end{pmatrix}.
+	$$
+	
+	Фиксируем крайние узлы
+	
+	$$
+	x_1=-1,
+	\qquad
+	x_4=1.
+	$$
+	
+	Для удобства обозначим
+	
+	$$
+	x_2=u,
+	\qquad
+	x_3=v.
+	$$
+	
+	Таким образом,
+	
+	$$
+	x_1=-1,\qquad
+	x_2=u,\qquad
+	x_3=v,\qquad
+	x_4=1.
+	$$
+	
+	\subsection{Система по компонентам}
+	
+	После покомпонентного раскрытия получаем
+	
+	$$
+	\begin{cases}
+		\omega_1-\omega_2+\omega_3-\omega_4=0,\\[2mm]
+		-\omega_1-\omega_2u+\omega_3v-\omega_4=\lambda^*,\\[2mm]
+		\omega_1-\omega_2u^2+\omega_3v^2-\omega_4=2\lambda^*x,\\[2mm]
+		-\omega_1-\omega_2u^3+\omega_3v^3-\omega_4=3\lambda^*x^2,\\[2mm]
+		\omega_1-\omega_2u^4+\omega_3v^4-\omega_4=4\lambda^*x^3.
+	\end{cases}
+	$$
+	
+	Дополнительно выполняется условие нормировки
+	
+	$$
+	\omega_1+\omega_2+\omega_3+\omega_4=1.
+	$$
+	
+	\subsection{Выражение $\omega_3$ и $\omega_4$}
+	
+	Из первого уравнения системы имеем
+	
+	$$
+	\omega_3-\omega_4=\omega_2-\omega_1.
+	$$
+	
+	Из условия нормировки
+	
+	$$
+	\omega_3+\omega_4=1-\omega_1-\omega_2.
+	$$
+	
+	Складывая и вычитая эти равенства, получаем
+	
+	$$
+	\boxed{
+		\omega_3=\frac12-\omega_1
+	}
+	$$
+	
+	и
+	
+	$$
+	\boxed{
+		\omega_4=\frac12-\omega_2.
+	}
+	$$
+	
+	Следовательно,
+	
+	$$
+	\omega_1=\omega_1,\qquad
+	\omega_2=\omega_2,\qquad
+	\omega_3=\frac12-\omega_1,\qquad
+	\omega_4=\frac12-\omega_2.
+	$$
+	
+	\subsection{Исключение $\lambda^*$}
+	
+	Введём обозначение
+	
+	$$
+	M_r=
+	(-1)^r\omega_1
+	-\omega_2u^r
+	+\left(\frac12-\omega_1\right)v^r
+	-\left(\frac12-\omega_2\right).
+	$$
+	
+	Тогда четыре ненулевых уравнения исходной системы принимают вид
+	
+	$$
+	M_1=\lambda^*,
+	$$
+	
+	$$
+	M_2=2\lambda^*x,
+	$$
+	
+	$$
+	M_3=3\lambda^*x^2,
+	$$
+	
+	$$
+	M_4=4\lambda^*x^3.
+	$$
+	
+	Из первого равенства
+	
+	$$
+	\lambda^*=M_1.
+	$$
+	
+	Поэтому вместо остальных трёх уравнений можно рассматривать
+	
+	$$
+	\boxed{
+		F_1=M_2-2xM_1=0,
+	}
+	$$
+	
+	$$
+	\boxed{
+		F_2=M_3-3x^2M_1=0,
+	}
+	$$
+	
+	$$
+	\boxed{
+		F_3=M_4-4x^3M_1=0.
+	}
+	$$
+	
+	После раскрытия скобок получаем
+	
+	$$
+	\boxed{
+		F_1=
+		\omega_1(1+2x)
+		+\omega_2(2u-2x)
+		+\frac{v^2-v}{2}
+		-1+x
+		=0,
+	}
+	$$
+	
+	$$
+	\boxed{
+		F_2=
+		\omega_1(3x^2-1)
+		+\omega_2(3x^2u-u^3)
+		+\frac{v^3-3x^2v}{2}
+		-1+3x^2
+		=0,
+	}
+	$$
+	
+	$$
+	\boxed{
+		F_3=
+		\omega_1(1+4x^3)
+		+\omega_2(4x^3u-u^4)
+		+\frac{v^4-4x^3v}{2}
+		-1+4x^3
+		=0.
+	}
+	$$
+	
+	\subsection{Базисные многочлены Лагранжа}
+	
+	Для узлов
+	
+	$$
+	-1,\qquad u,\qquad v,\qquad 1
+	$$
+	
+	базисные многочлены Лагранжа имеют вид
+	
+	$$
+	L_k(t)
+	=
+	\prod_{\substack{j=1\\j\ne k}}^4
+	\frac{t-x_j}{x_k-x_j}.
+	$$
+	
+	Их производные в точке $x$ имеют вид
+	
+	$$
+	\boxed{
+		L_1'(x)=
+		-\frac{
+			uv-2ux+u-2vx+v+3x^2-2x
+		}{
+			2(u+1)(v+1)
+		}.
+	}
+	$$
+	
+	Для второго узла
+	
+	$$
+	\boxed{
+		L_2'(x)=
+		\frac{
+			-2vx+v+3x^2-2x-1
+		}{
+			(u-1)(u+1)(u-v)
+		}.
+	}
+	$$
+	
+	Для третьего узла
+	
+	$$
+	\boxed{
+		L_3'(x)=
+		\frac{
+			2ux-u-3x^2+2x+1
+		}{
+			(u-v)(v-1)(v+1)
+		}.
+	}
+	$$
+	
+	Для четвёртого узла
+	
+	$$
+	\boxed{
+		L_4'(x)=
+		\frac{
+			uv-2ux-u-2vx-v+3x^2+2x
+		}{
+			2(u-1)(v-1)
+		}.
+	}
+	$$
+	
+	\subsection{Выражение весов через $u$ и $v$}
+	
+	Используем формулу
+	
+	$$
+	\omega_k=
+	\frac{
+		(-1)^{k+1}L_k'(x)
+	}{
+		\displaystyle
+		\sum_{i=1}^4(-1)^{i+1}L_i'(x)
+	}.
+	$$
+	
+	Введём обозначение
+	
+	$$
+	\boxed{
+		D=
+		L_1'(x)-L_2'(x)+L_3'(x)-L_4'(x).
+	}
+	$$
+	
+	Тогда
+	
+	$$
+	\boxed{
+		\omega_1=\frac{L_1'(x)}{D},
+		\qquad
+		\omega_2=-\frac{L_2'(x)}{D},
+	}
+	$$
+	
+	$$
+	\boxed{
+		\omega_3=\frac{L_3'(x)}{D},
+		\qquad
+		\omega_4=-\frac{L_4'(x)}{D}.
+	}
+	$$
+	
+	То есть
+	
+	$$
+	\boxed{
+		\omega_1=
+		-\frac{
+			uv-2ux+u-2vx+v+3x^2-2x
+		}{
+			2(u+1)(v+1)D
+		}.
+	}
+	$$
+	
+	$$
+	\boxed{
+		\omega_2=
+		-\frac{
+			-2vx+v+3x^2-2x-1
+		}{
+			(u-1)(u+1)(u-v)D
+		}.
+	}
+	$$
+	
+	$$
+	\boxed{
+		\omega_3=
+		\frac{
+			2ux-u-3x^2+2x+1
+		}{
+			(u-v)(v-1)(v+1)D
+		}.
+	}
+	$$
+	
+	$$
+	\boxed{
+		\omega_4=
+		-\frac{
+			uv-2ux-u-2vx-v+3x^2+2x
+		}{
+			2(u-1)(v-1)D
+		}.
+	}
+	$$
+	
+	\subsection{Подстановка весов в систему}
+	
+	Подставляя найденные выражения для весов в
+	
+	$$
+	F_1=0,\qquad
+	F_2=0,\qquad
+	F_3=0,
+	$$
+	
+	после сокращения общих множителей получаем
+	
+	$$
+	\boxed{
+		F_1\equiv0,
+	}
+	$$
+	
+	$$
+	\boxed{
+		F_2\equiv0.
+	}
+	$$
+	
+	Из третьего уравнения остаётся нетривиальное условие
+	
+	$$
+	\boxed{
+		2uvx-3uv
+		-3ux^2+2ux+2u
+		-3vx^2+2vx+2v
+		+4x^3-3x^2-2x
+		=0.
+	}
+	$$
+	
+	Таким образом, это единственное дополнительное уравнение на $u$ и $v$, которое остаётся после использования формулы оптимальных весов.
+	
+	\subsection{Условие $x_3-x_2=\alpha$}
+	
+	Добавим дополнительное условие
+	
+	$$
+	x_3-x_2=\alpha.
+	$$
+	
+	Поскольку
+	
+	$$
+	x_2=u,\qquad x_3=v,
+	$$
+	
+	получаем
+	
+	$$
+	v-u=\alpha.
+	$$
+	
+	Следовательно,
+	
+	$$
+	\boxed{
+		v=u+\alpha.
+	}
+	$$
+	
+	Таким образом,
+	
+	$$
+	\boxed{
+		x_2=u,\qquad
+		x_3=u+\alpha.
+	}
+	$$
+	
+	\subsection{Подстановка $v=u+\alpha$}
+	
+	Подставляем
+	
+	$$
+	v=u+\alpha
+	$$
+	
+	в уравнение
+	
+	$$
+	2uvx-3uv
+	-3ux^2+2ux+2u
+	-3vx^2+2vx+2v
+	+4x^3-3x^2-2x
+	=0.
+	$$
+	
+	Получаем
+	
+	$$
+	\begin{aligned}
+		&2u(u+\alpha)x
+		-3u(u+\alpha)
+		-3ux^2
+		+2ux
+		+2u
+		\\
+		&\qquad
+		-3(u+\alpha)x^2
+		+2(u+\alpha)x
+		+2(u+\alpha)
+		+4x^3-3x^2-2x
+		=0.
+	\end{aligned}
+	$$
+	
+	Собирая слагаемые по степеням $u$, получаем
+	
+	$$
+	\boxed{
+		(2x-3)u^2
+		+
+		\left(
+		2\alpha x-3\alpha
+		-6x^2+4x+4
+		\right)u
+		+
+		\left(
+		-3\alpha x^2
+		+2\alpha x
+		+2\alpha
+		+4x^3-3x^2-2x
+		\right)
+		=0.
+	}
+	$$
+	
+	\subsection{Введение $A$, $B$, $C$}
+	
+	Для компактности обозначим
+	
+	$$
+	\boxed{
+		A=2x-3,
+	}
+	$$
+	
+	$$
+	\boxed{
+		B=
+		2\alpha x-3\alpha
+		-6x^2+4x+4,
+	}
+	$$
+	
+	$$
+	\boxed{
+		C=
+		-3\alpha x^2
+		+2\alpha x
+		+2\alpha
+		+4x^3-3x^2-2x.
+	}
+	$$
+	
+	Тогда уравнение для $u=x_2$ принимает стандартный вид
+	
+	$$
+	\boxed{
+		Au^2+Bu+C=0.
+	}
+	$$
+	
+	При условии
+	
+	$$
+	2x-3\ne0
+	$$
+	
+	получаем
+	
+	$$
+	\boxed{
+		x_2=u=
+		\frac{-B\pm\sqrt{B^2-4AC}}{2A}.
+	}
+	$$
+	
+	Непосредственно через $x$ и $\alpha$:
+	
+	$$
+	\boxed{
+		x_2=
+		\frac{
+			-\left(
+			2\alpha x-3\alpha-6x^2+4x+4
+			\right)
+			\pm
+			\sqrt{
+				\left(
+				2\alpha x-3\alpha-6x^2+4x+4
+				\right)^2
+				-
+				4(2x-3)
+				\left(
+				-3\alpha x^2+2\alpha x+2\alpha
+				+4x^3-3x^2-2x
+				\right)
+			}
+		}{
+			2(2x-3)
+		}.
+	}
+	$$
+	
+	После этого
+	
+	$$
+	\boxed{
+		x_3=x_2+\alpha.
+	}
+	$$
+	
+	Или, используя обозначения $A,B,C$,
+	
+	$$
+	\boxed{
+		x_3=
+		\frac{-B\pm\sqrt{B^2-4AC}}{2A}
+		+\alpha.
+	}
+	$$
+	
+	Знак $\pm$ должен быть выбран согласованно для $x_2$ и $x_3$.
+	
+	\subsection{Восстановление весов}
+	
+	После нахождения $x_2$ и $x_3$ подставляем их в
+	
+	$$
+	D=
+	L_1'(x)-L_2'(x)+L_3'(x)-L_4'(x).
+	$$
+	
+	Тогда веса определяются формулами
+	
+	$$
+	\boxed{
+		\omega_1=\frac{L_1'(x)}{D},
+		\qquad
+		\omega_2=-\frac{L_2'(x)}{D},
+	}
+	$$
+	
+	$$
+	\boxed{
+		\omega_3=\frac{L_3'(x)}{D},
+		\qquad
+		\omega_4=-\frac{L_4'(x)}{D}.
+	}
+	$$
+	
+	При этом выполняются соотношения
+	
+	$$
+	\boxed{
+		\omega_3=\frac12-\omega_1,
+		\qquad
+		\omega_4=\frac12-\omega_2.
+	}
+	$$
+	
+	\subsection{Восстановление $\lambda^*$}
+	
+	Из первого ненулевого уравнения исходной системы
+	
+	$$
+	-\omega_1-\omega_2x_2+\omega_3x_3-\omega_4
+	=
+	\lambda^*
+	$$
+	
+	получаем
+	
+	$$
+	\boxed{
+		\lambda^*
+		=
+		-\omega_1-\omega_2x_2+\omega_3x_3-\omega_4.
+	}
+	$$
+	
+	С учётом
+	
+	$$
+	x_2=u,\qquad
+	x_3=u+\alpha
+	$$
+	
+	имеем
+	
+	$$
+	\boxed{
+		\lambda^*
+		=
+		-\omega_1-\omega_2u
+		+\omega_3(u+\alpha)
+		-\omega_4.
+	}
+	$$
+	
+	Используя
+	
+	$$
+	\omega_3=\frac12-\omega_1,
+	\qquad
+	\omega_4=\frac12-\omega_2,
+	$$
+	
+	получаем
+	
+	$$
+	\boxed{
+		\lambda^*
+		=
+		-\omega_1-\omega_2u
+		+\left(\frac12-\omega_1\right)(u+\alpha)
+		-\left(\frac12-\omega_2\right).
+	}
+	$$
+	
+	\subsection{Итоговая схема решения}
+	
+	Таким образом,
+	
+	$$
+	\boxed{
+		x_1=-1,\qquad
+		x_4=1,\qquad
+		x_3-x_2=\alpha.
+	}
+	$$
+	
+	Полагая
+	
+	$$
+	x_2=u,\qquad
+	x_3=u+\alpha,
+	$$
+	
+	получаем
+	
+	$$
+	\boxed{
+		x_2=u,\qquad
+		x_3=u+\alpha.
+	}
+	$$
+	
+	Значение $u$ определяется из квадратного уравнения
+	
+	$$
+	\boxed{
+		(2x-3)u^2
+		+
+		(2\alpha x-3\alpha-6x^2+4x+4)u
+		+
+		(-3\alpha x^2+2\alpha x+2\alpha
+		+4x^3-3x^2-2x)
+		=0.
+	}
+	$$
+	
+	При $2x-3\ne0$
+	
+	$$
+	\boxed{
+		x_2=
+		\frac{-B\pm\sqrt{B^2-4AC}}{2A},
+		\qquad
+		x_3=x_2+\alpha,
+	}
+	$$
+	
+	где
+	
+	$$
+	\boxed{
+		A=2x-3,
+	}
+	$$
+	
+	$$
+	\boxed{
+		B=2\alpha x-3\alpha-6x^2+4x+4,
+	}
+	$$
+	
+	$$
+	\boxed{
+		C=-3\alpha x^2+2\alpha x+2\alpha
+		+4x^3-3x^2-2x.
+	}
+	$$
+	
+	После определения узлов вычисляются веса:
+	
+	$$
+	\boxed{
+		\omega_k=
+		\frac{
+			(-1)^{k+1}L_k'(x)
+		}{
+			L_1'(x)-L_2'(x)+L_3'(x)-L_4'(x)
+		}.
+	}
+	$$
+	
+	Наконец,
+	
+	$$
+	\boxed{
+		\lambda^*
+		=
+		-\omega_1-\omega_2x_2+\omega_3x_3-\omega_4.
+	}
+	$$
+	
+	При выборе ветви $\pm$ необходимо учитывать допустимость узлов
+	
+	$$
+	\boxed{
+		-1<x_2<x_3<1
+	}
+	$$
+	
+	и ненулевость знаменателей, возникающих в формулах для многочленов Лагранжа.
+	
+	
 	
 \end{document}
