@@ -397,8 +397,7 @@
 	\]
 	
 	\newpage
-	\noindent Условие положительности весов можно записать как\\
-	\noindent (По факту в секции с растяжкой решены уравнения 1,5 и уравнения 2,4 имеют симметричные корни. а уравнения 3 и 6 ваще квадры), так что найти корни второго
+	\noindent Условие положительности весов можно записать как
 	\[
 	\begin{cases}
 		\lambda^* (4x^3 -3x^2-x+\frac{1}{2}) > 0 \\
@@ -411,6 +410,103 @@
 	\]
 	
 	
+	\noindent Решая уравнение $-8x^3 + 3\sqrt{2}x^2 + 4x - \sqrt{2} = 0$ получаем
+	\[
+	x_{2,k} = \frac{\sqrt2}{8} + 
+	\sqrt{\frac{19}{24}} 
+	\cos 
+	\left(
+	\frac{1}{3} 
+		\arccos 
+		\left(
+		-\frac{21\sqrt{57}}{361}
+		\right)
+	+ \frac{2 \pi k}{3}
+	\right), \quad k=0,1,2
+	\]
+	
+	\[
+	\boxed
+	{
+		x_{2,0} \approx 0.87132 \qquad 
+		x_{2,1} \approx -0.65211 \qquad 
+		x_{2,2} \approx 0.31111 \qquad 
+	}
+	\]
+	
+	\noindent А для $-8x^3 - 3\sqrt{2}x^2 + 4x + \sqrt{2} = 0$ то же самое, но с минусом
+	\[
+	\boxed
+	{
+		x_{4,0} = - x_{2,0} \qquad 
+		x_{4,1} = - x_{2,1} \qquad 
+		x_{4,2} = - x_{2,2}
+	}
+	\]\\
+	
+	\noindent Решая уравнение $ 8x^3 - 6x = 0$ получаем	
+	\[
+	\boxed
+	{
+		x_{3,0} = - \frac{\sqrt3}{2} \approx -0.866 \qquad 
+		x_{3,1} = 0 \qquad 
+		x_{3,2} = \frac{\sqrt3}{2} \approx 0.866 \qquad 
+	}
+	\]\\
+	
+	\noindent Из $4x^3 + 3x^2 -x - \frac{1}{2} = 0$ находим
+	
+	$$
+		x_{5,k}=
+		-\frac14+
+		\sqrt{\frac7{12}}
+		\cos\left(
+		\frac13
+		\arccos\left(\frac{3\sqrt{21}}{49}\right)
+		+\frac{2\pi k}{3}
+		\right),
+		\qquad
+		k=0,1,2.
+	$$
+	
+	$$
+	\boxed{
+		x_{5,0} \approx 0.4446 \qquad
+		x_{5,1} \approx -0.8723 \qquad
+		x_{5,2} \approx -0.3222,
+	}
+	$$
+	
+	\noindent Аналогично из $4x^3 - 3x^2 -x + \frac{1}{2} = 0$ находим
+
+	$$
+	\boxed{
+		x_{1,0} = -x_{5,0} \qquad
+		x_{1,1} = -x_{5,1} \qquad
+		x_{1,2} = -x_{5,2}
+	}
+	$$\\
+	
+	\noindent Знаменатель в лямбде
+	\[
+	16x(2x^2-1) = 0
+	\]
+	
+	\[
+	\boxed{
+		x_{6,0} = -\frac{1}{\sqrt2} \approx -0.7071 \qquad
+		x_{6,1} = 0 \qquad
+		x_{6,2} = \frac{1}{\sqrt2} \approx 0.7071  \qquad
+	}
+	\]
+	
+	\noindent Решая систему получаем
+	\[
+	x \in ( -\infty, \ x_{5,1} ) \cup (x_{1,0} , \ x_{5,2}) \cup (x_{1,2} , \ x_{5,0} )  \cup (x_{1,1}, \ \infty)
+	\]
+	\[
+	x \in ( -\infty, \ -0.8723 ) \cup (-0.4446 , \ -0.3222) \cup (0.3222 , \ 0.4446 )  \cup (0.8723, \ \infty)
+	\]
 	
 	\newpage
 	\section{Получебышёвские планы}
@@ -519,7 +615,7 @@
 	L_k(x) = \underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j}, \ k \in 1 \ldots m
 	\]
 	
-	\subsection{Ограничение на $x$ от весов}
+	\subsection{Ограничение на $x$ от весов безотносительно типа растяжки}
 	
 	Мы требуем $\forall k \in 1 \ldots m \ \omega_k > 0 $
 	
@@ -858,7 +954,7 @@
 	\frac{ x(1 + t_{k-1}) + (t_{k-1} - s) }{s+1} , \qquad \ k \in 1, \ldots m
 	\]
 	
-	\subsection{Ограничение на $x$ от узлов}
+	\subsection{Ограничение на $x$ от узлов (растяжка вправо)}
 	
 	\noindent Вспоминаем геометрию узлов:
 	\[
@@ -904,6 +1000,99 @@
 		\left(0.4446, \quad 0.6924 \right) \\
 	\end{cases}
 	\]
+	
+	
+	\subsection{Ограничение на $x$ от весов (растяжка вправо)}
+	\noindent Хотим
+	\[
+	\omega_k  = (-1)^{k+1} \lambda^* L_k'(x) > 0 , \ \forall k \in 1 \ldots m 
+	\]
+	
+	
+	
+	\noindent Хотим исследовать знаки $L'_k(x)$\\
+	Вспоминаем что
+	\[
+	s = \frac{x-b}{a}
+	\]
+	
+	\noindent и 
+	\[
+	x_k = a t_{k-1} + b, \ k \in 1 \ldots m
+	\]
+	
+	\noindent Отсюда
+	\[
+	L_k(x) = 
+	\underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j} = 
+	\underset{k \neq j}{\prod_{j=1}^{m}} \frac{s - t_{j-1}}{t_{k-1} - t_{j-1}} =
+	\tilde{L}_k(s), \
+	\ k \in 1 \ldots m
+	\]
+	
+	\noindent То есть
+	\[
+	\boxed{
+	L'_k(x) = \frac{1}{a} \tilde{L}'_k(s) , 
+	\ k \in 1 \ldots m}
+	\]
+	
+	\noindent Так как
+	\[
+	L'_k(x) = L_k(x)\underset{i=1}{\sum_{i \neq k}^m} \frac{1}{x-x_i}
+	\]
+	\[
+	\tilde{L}'_k(s) = \tilde{L}_k(s)\underset{i=1}{\sum_{i \neq k}^m} \frac{1}{s-t_{i-1}}
+	\]
+	
+	\noindent Помним что есть $q_0(s)$ 
+	\[
+	q_0(s) = \prod_{k=1}^{m} \left( s - t_{k-1} \right)
+	\]
+	
+	\noindent A найденные выше $s_j$ это корни его производной
+	\[
+	q'_0(s) = q_0(s)\sum_{k=1}^{m} \frac{1}{s - t_{k-1}}  
+	\]
+	
+	\noindent Тогда ($ \forall i,j \ \ s_j \neq t_i $)
+	\[
+	\sum_{k=1}^{m} \frac{1}{s_i - t_{k-1}}  = 0, \ i=0,1,2
+	\]
+	
+	\noindent Итого
+	\[
+	L'_k(x) = 
+	\frac{1}{a} \tilde{L}'_k(s) =
+	\frac{1}{a} \tilde{L}_k(s) \underset{i=1}{\sum_{i \neq k}^m} \frac{1}{s-t_{i-1}} =
+	\frac{-\tilde{L}_k(s)}{a(s-t_{k-1})}
+	\]
+	
+	\noindent Ясно, что
+	\[
+	\exists r \in \lbrace 1, \ \ldots, \ m-1 \rbrace : \quad s \in (t_{r-1}, t_r)
+	\]
+	
+	\noindent Тогда ($a>0$)
+	\[
+		sign \ L'_k(x) = (-1)^{k+r+1}
+	\]
+	
+	\[
+	sign \ \omega_k  = 
+	sign \left( (-1)^{k+1} \lambda^* L_k'(x) \right) =
+	sign (  \lambda^* )(-1)^r
+	\]
+	
+	\noindent Знак лямбды находим через\\
+	Если $r=0 \ (mod2)$ то $\lambda^*>0$ и $\omega_k > 0 \ \forall k \in 1 \ldots m$.\\
+	 Впрочем, если $r=1 \ (mod2)$ то $\lambda^*<0$ тоже $\omega_k > 0 \ \forall k \in 1 \ldots m$
+	\[
+	\lambda^* = \left( \sum_{k=1}^{m} (-1)^{k+1}  L_k'(x) \right) ^ {-1}
+	\]
+	
+	
+	
 	
 	\newpage
 	\subsection*{Если растяжка влево}
@@ -1238,7 +1427,7 @@
 	
 	
 	
-	\subsection{Ограничение на $x$ от узлов}
+	\subsection{Ограничение на $x$ от узлов (растяжка влево) }
 	
 	\noindent Вспоминаем геометрию узлов:
 	\[
@@ -1284,6 +1473,93 @@
 		\left(0.2059, \quad 0.3222 \right) \\
 		\left(0.8503, \quad 0.8723 \right) \\
 	\end{cases}
+	\]
+	
+	\subsection{Ограничение на $x$ от весов (растяжка влево)}
+	\noindent Хотим
+	\[
+	\omega_k  = (-1)^{k+1} \lambda^* L_k'(x) > 0 , \ \forall k \in 1 \ldots m 
+	\]
+	
+	\noindent Хотим исследовать знаки $L'_k(x)$\\
+	Вспоминаем что
+	\[
+	s = \frac{x-b}{a}
+	\]
+	
+	\noindent и 
+	\[
+	x_k = a t_{k} + b, \ k \in 1 \ldots m
+	\]
+	
+	\noindent Отсюда
+	\[
+	L_k(x) = 
+	\underset{k \neq j}{\prod_{j=1}^{m}} \frac{x - x_j}{x_k - x_j} = 
+	\underset{k \neq j}{\prod_{j=1}^{m}} \frac{s - t_{j}}{t_{k} - t_{j}} =
+	\tilde{L}_k(s), \
+	\ k \in 1 \ldots m
+	\]
+	
+	\noindent То есть
+	\[
+	\boxed{
+		L'_k(x) = \frac{1}{a} \tilde{L}'_k(s) , 
+		\ k \in 1 \ldots m}
+	\]
+	
+	\noindent Так как
+	\[
+	L'_k(x) = L_k(x)\sum_{i \neq k} \frac{1}{x-x_i}
+	\]
+	\[
+	\tilde{L}'_k(s) = \tilde{L}_k(s)\sum_{i \neq k} \frac{1}{t-t_i}
+	\]
+	
+	\noindent Помним что есть $q_0(s)$ 
+	\[
+	q_0(s) = \prod_{k=1}^{m} \left( s - t_{k} \right)
+	\]
+	
+	\noindent A найденные выше $s_k$ это корни его производной
+	\[
+	q'_0(s) = q_0(s)\sum_{k=1}^{m} \frac{1}{s - t_{k}}  
+	\]
+	
+	\noindent Тогда ($ \forall i,j \ \ s_j \neq t_i $)
+	\[
+	\sum_{k=1}^{m} \frac{1}{s_i - t_{k}}  = 0, \ i=0,1,2
+	\]
+	
+	\noindent Итого
+	\[
+	L'_k(x) = 
+	\frac{1}{a} \tilde{L}'_k(s) =
+	\frac{1}{a} \tilde{L}_k(s) \underset{i=1}{\sum_{i \neq k}^m} \frac{1}{s-t_{i}} =
+	\frac{-L_k(s)}{a(s-t_{k})}
+	\]
+	
+	\noindent Ясно, что
+	\[
+	\exists r \in \lbrace 2, \ \ldots, \ m \rbrace : \quad s \in (t_{r-1}, t_r)
+	\]
+	
+	\noindent Тогда ($a>0$)
+	\[
+	sign \ L'_k(x) = (-1)^{k+r}
+	\]
+	
+	\[
+	sign \ \omega_k  = 
+	sign \left( (-1)^{k+1} \lambda^* L_k'(x) \right) =
+	sign (  \lambda^* )(-1)^{r+1}
+	\]
+	
+	\noindent Знак лямбды находим через\\
+	Если $r=0 \ (mod2)$ то $\lambda^*<0$ и $\omega_k > 0 \ \forall k \in 1 \ldots m$.\\
+	Впрочем, если $r=1 \ (mod2)$ то $\lambda^*>0$ и тоже $\omega_k > 0 \ \forall k \in 1 \ldots m$
+	\[
+	\lambda^* = \left( \sum_{k=1}^{m} (-1)^{k+1}  L_k'(x) \right) ^ {-1}
 	\]
 	
 	\newpage

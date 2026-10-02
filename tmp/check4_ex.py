@@ -103,6 +103,7 @@ def solve_system(x, alpha, tol=1e-12):
         discriminant = B**2 - 4 * A * C
 
         if discriminant < -tol:
+            print("BAD_D")
             return []
 
         discriminant = max(discriminant, 0.0)
@@ -130,9 +131,9 @@ def solve_system(x, alpha, tol=1e-12):
 
         # Допустимость узлов
         if not (-1 < u < v < 1):
+            continue
             print("NO -1 < u < v < 1 ")
             print(f"cuz !( -1 < {u} < {v} < 1 )")
-            continue
 
         # Производные Лагранжа
         L1, L2, L3, L4 = lagrange_derivatives(
@@ -282,10 +283,18 @@ def summary(x,alpha):
         print(f"\n=== Solution {i} ===")
 
         print("x1, x2, x3, x4:")
+        if sol["x_nodes"][1]>=sol["x_nodes"][2]:
+            print("BAD")
+            print(sol["x_nodes"])
+            exit(1)
         print(sol["x_nodes"])
 
         print("\nomega:")
         print(sol["weights"])
+        if min(sol["weights"]) < 0:
+            print(sol["weights"])
+            print("BAD WEIGHTS")
+            exit(1)
         print(sum(sol["weights"]))
 
         print("\nlambda*:")
@@ -306,13 +315,14 @@ def summary(x,alpha):
 # alpha=float(input("alpha="))
 # summary(x,alpha)
 
-for x in np.linspace(-2,2,15):
-    for alpha in np.linspace(0.01, 1, 6):
-        print("="*30)
-        print(f"{x=}")
-        print(f"{alpha=}")
-        summary(x,alpha)
-        print()
-        print()
+for x in np.linspace(-0.99,0.99,100):
+    # for alpha in np.linspace(0.01, 1, 6):
+    alpha = ( 1 - abs(x) )/2
+    print("="*30)
+    print(f"{x=}")
+    print(f"{alpha=}")
+    summary(x,alpha)
+    print()
+    print()
 
 

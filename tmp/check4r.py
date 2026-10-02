@@ -1,4 +1,3 @@
-
 import numpy as np
 import math
 
@@ -93,51 +92,53 @@ def compute_omegas(x, m, *xs):
 
 def s(k):
     return (
-        1 / 4
+        -1 / 4
         + math.sqrt(7 / 12)
         * math.cos(
-            math.acos(-3 * math.sqrt(21) / 49) / 3
+            math.acos(3 * math.sqrt(21) / 49) / 3
             + 2 * math.pi * k / 3
         )
     )
 
 def calculate_variables(s, x_point):
-    b = (x_point - s) / (1 - s) 
-    a = 1 - b
+    b = (x_point - s) / (s + 1) 
+    a = b + 1
     print(f"a={a}")
-
-    mb_la = -(1 - x_point) / (4 * (1 - s) * (6 * s**2 - 2 * s - 1))
-    print(f"mb lambda={mb_la}")
+    mb_la = -(x_point + 1) / (4 * (s + 1) * (6 * s**2 + 2 * s - 1))
+    print(f"mb lamda={mb_la}")
 
     x = [ 
-        a * math.cos( ((4-i) * math.pi) / 4 ) + b for i in range(1,5)
+        a * math.cos( ((4-i) * math.pi) / 4 ) + b for i in range(4)
     ]
     
 
     omega,denom = compute_omegas(x_point, 4, *x)
     return x, omega, 1/denom
 
+# x_point = float(input("x_point="))   # <-- Впишите сюда значение x (если оно неизвестно, можно подобрать позже)
 
-for k in range(3):
-# k=2
-    print(f"s[k]={s(k)}")
-    x_point = float(input("x_point="))   # <-- Впишите сюда значение x (если оно неизвестно, можно подобрать позже)
-    x_val, omega_val, beta_val = calculate_variables(s(k), x_point)
 
-    res_vec = check_solution(omega_val, x_val, beta_val, x_point)
+for x_point in np.linspace(-2,2,5):
+    print(f"{x_point=}")
+    for k in range(3):
+        x_val, omega_val, beta_val = calculate_variables(s(k), x_point)
 
-    print(f"x = {x_val}")
-    print(f"omega = {omega_val}")
-    print(f"sum(omega)={sum(omega_val)}")
-    print(f"lambda = {beta_val}")
-    print("--- Результаты проверки ---")
-    print("Невязка векторного уравнения (LHS - RHS):")
-    print(f"  Компонента 1: {res_vec[0]:.6f}")
-    print(f"  Компонента 2: {res_vec[1]:.6f}")
-    print(f"  Компонента 3: {res_vec[2]:.6f}")
-    print(f"  Компонента 4: {res_vec[3]:.6f}")
-    print(f"  Компонента 5: {res_vec[4]:.6f}")
-    print()
-    print()
+        res_vec = check_solution(omega_val, x_val, beta_val, x_point)
+        
+        print(f"s[k]={s(k)}")
+        print(f"x = {x_val}")
+        print(f"omega = {omega_val}")
+        print(f"sum(omega)={sum(omega_val)}")
+        print(f"lambda = {beta_val}")
+        print("--- Результаты проверки ---")
+        print("Невязка векторного уравнения (LHS - RHS):")
+        print(f"  Компонента 1: {res_vec[0]:.6f}")
+        print(f"  Компонента 2: {res_vec[1]:.6f}")
+        print(f"  Компонента 3: {res_vec[2]:.6f}")
+        print(f"  Компонента 4: {res_vec[3]:.6f}")
+        print(f"  Компонента 5: {res_vec[4]:.6f}")
+        print(f"  max_err = {max(abs(res_vec))}")
+        print()
+        print()
 
 
